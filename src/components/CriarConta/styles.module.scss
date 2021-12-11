@@ -1,0 +1,82 @@
+
+.criar {
+    color: black;
+}
+
+.container {
+    display: grid;
+    margin-left: 2rem;
+
+    .email, .senha {
+        height: 2rem;
+        border-radius: 4px;
+        border: 0;
+        padding-left: 0.5rem;
+        margin-top: 1.5rem; 
+    }
+
+   
+
+}
+
+.containerNomes {
+    width: 44rem;
+
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 1.5rem;
+
+    .nome, .sobre {   
+        width: 20rem;
+        height: 2rem;
+        padding-left: 0.5rem;
+    }
+
+}
+
+.nascimentoText {
+    margin-top: 1.5rem;
+    padding-left: 2rem;
+}
+
+.nascimento {
+    display: flex;
+    margin-left: 2rem;
+    height: 2rem;
+    padding-left: 0.5rem;
+}
+
+.generoText {
+    margin-top: 1.5rem;
+    padding-left: 2rem;
+}
+
+.genero {
+    display: flex;
+    margin-left: 2rem;
+    height: 2rem;
+    padding-left: 0.5rem;
+    width: 178px;
+}
+
+.admin {
+    display: flex;
+    margin-left: 2rem;
+    height: 2rem;
+    padding-left: 0.5rem;
+    width: 178px;
+}
+
+.buttonLogar {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 2rem;
+
+    background: #000;
+    color: var(--white);
+
+    //display: flex;
+    align-items: center;
+    justify-content: center;
+}

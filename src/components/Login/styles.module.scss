@@ -1,0 +1,87 @@
+
+.caixaContainer{
+    display: flex;   
+    margin: 0 auto;
+    max-width: 1120px;
+    
+    align-items: center;
+    height: 80vh;
+    
+    img {
+        width: 19rem;
+    }
+}
+
+.caixaLogin {
+    margin: 0 auto;
+    text-align: center;
+
+    h2 {
+        margin-bottom: 2rem;
+        color: var(--white);
+    }
+}
+
+.caixaCampos {
+    max-width: 20rem;
+    background: var(--purple-300);
+    margin: 0 auto;
+    
+    text-align: center;
+    border-radius: 6px;
+    
+}
+
+.inputEmail {
+    margin-top: 2rem;
+    width: 18rem;
+    border-radius: 3px;
+    border: 0px;
+    height: 1.9rem;
+    padding-left: 0.5rem;
+}
+
+.inputSenha {
+    margin-top: 0.5rem;
+    width: 18rem;
+    border-radius: 3px;
+    border: 0px;
+    height: 1.9rem;
+    padding-left: 0.5rem;
+}
+
+.buttonLogar {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    width: 100px;
+    height: 2rem;
+    border: 0;
+    border-radius: 1rem;
+    background: var(--pink-300);
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: bold;
+
+    //display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: filter 0.2s;
+
+    &:hover {
+        filter: brightness(0.9);
+    }
+}
+
+.buttonCriar {
+    margin-top: 1rem;
+
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: bold;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

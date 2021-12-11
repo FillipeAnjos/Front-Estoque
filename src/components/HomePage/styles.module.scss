@@ -1,0 +1,25 @@
+
+
+.buttonLogar {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    width: 100px;
+    height: 2rem;
+    border: 0;
+    border-radius: 1rem;
+    background: var(--pink-300);
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: bold;
+
+    //display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: filter 0.2s;
+
+    &:hover {
+        filter: brightness(0.9);
+    }
+}
