@@ -25,19 +25,20 @@ export default NextAuth({
 
             let credenciais = { email: credentials.email, senha: credentials.senha };
 
-            let user = null;
-            await api({
-                  method: 'post',
-                  url: '/login',
-                  data: {
-                  param: credenciais
-                }
-            }).then(function(res) {
-                user = res.data;
-            })
+            let usuario = null;
 
-            if (user.status) {
-              return user
+            await api({
+                        method: 'post',
+                        url: '/login',
+                        data: {
+                          param: credenciais
+                        }
+                }).then(function(res) {
+                    usuario = res.data.user;
+                })
+
+            if (usuario.status) {
+              return usuario
             } else {
                 console.log("Erro ao tentar logar. Usuário e/ou Senha incorretos!");
               return null

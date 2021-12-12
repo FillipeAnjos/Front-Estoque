@@ -9,12 +9,13 @@ export default function verificarAutenticidade(WrappedComponent: ElementType){
         const router = useRouter();
 
         //console.log(session);
+        //console.log(session.user.name.nome);
         
         useEffect(() => {
 
-            if(!session){
+            /*if(!session){
                 router.replace('/');
-            }
+            }*/
 
         }, []);
         
