@@ -1,40 +1,22 @@
-import { useRouter } from 'next/router';
 import CriarConta from './criarConta';
-import Login from './login';
-import styles from '../components/HomePage/styles.module.scss';
+//import HomePage from './home';
+import { useSession } from "next-auth/react"
 
-import { useSession, signIn, signOut } from "next-auth/react"
-import { Sidebar } from '../components/Sidebar';
-import ProdutoNovo from './produtoNovo';
-import Head from 'next/head';
+import dynamic from 'next/dynamic';
+
+const HomePage = dynamic( () => import("./home"), { ssr: false });// Essa linha resolver o erro de "ReferenceError: window is not defined" - https://www.youtube.com/watch?v=KecDqkKt3HI
 
 export default function Home() {
-
-  const router = useRouter();
 
   const {data: session} = useSession();
 
   return session != null ? (
-
-      <div>
-        <Head>
-            <title>Home Page</title>
-        </Head>
-        <h1>Home page</h1>
-        <br/>
-        <br/>
-                    <button 
-                          type="submit"
-                          className={styles.buttonLogar}
-                          onClick={() => signOut()}
-                      >
-                          Deslogar
-                      </button> 
-      </div>
-
+    <>
+        <HomePage />
+    </>
   ) : (
    <>
-    <CriarConta />
+        <CriarConta />
    </>
   )
 }
