@@ -8,6 +8,7 @@ import { AiFillDollarCircle } from 'react-icons/ai';
 import { BiBarChart } from 'react-icons/bi';
 import { RiBarcodeFill, RiTruckFill } from 'react-icons/ri';
 import { IoPeopleSharp } from 'react-icons/io5';
+import { FaTruck, FaUserCircle } from 'react-icons/fa';
 import { IoIosSettings, IoLogoFacebook, IoIosNotifications, IoMdHelpCircleOutline, IoMdPerson, IoIosPaper, IoLogoInstagram } from 'react-icons/io';
 import { useSession } from "next-auth/react";
 import ProgressoMensal from '../components/ProgressoMensal';
@@ -69,7 +70,7 @@ function Home(){
                     
                     <div className={styles.cubo} onClick={ () => cubo(1) }>
                         <div className={styles.cubo1}>
-                            <h1><RiTruckFill /></h1>
+                            <h1><FaTruck /></h1>
                             <h4>Fornecedores</h4>
                         </div>
                     </div>
@@ -101,7 +102,7 @@ function Home(){
                     <div className={styles.textProgresso}>
                         <h2><BiBarChart /></h2><p>Progresso Mensal</p>
                     </div>
-                    <ProgressoMensal />
+                    <ProgressoMensal tipo={"bar"} />
                 </div>
                 
             </div>
@@ -122,7 +123,7 @@ function Home(){
                     
                     <div className={styles.modelo1}>
                         <div>
-                            Caixinha 1
+                            Caixa da loja
                         </div>
 
                         <div>
@@ -132,7 +133,7 @@ function Home(){
 
                     <div className={styles.modelo2}>
                         <div>
-                            Caixinha 3
+                            Permissões
                         </div>
 
                         <div>
@@ -142,32 +143,50 @@ function Home(){
 
                 </div>
 
-                <h3 className={styles.TextoMembros}>Membros</h3>
+                <h4 className={styles.textoMembros}>Membros</h4>
                 <div className={styles.caixa5}>
                     
-                    <div >
+                    <div className={styles.usersSistem}>
                         <div>
-                            User 1
+                            <h2><FaUserCircle /></h2>
+                            <p>Fillipe</p>
+                            <h5>dos Anjos</h5>
                         </div>
 
                         <div>
-                            User 2
+                            <h2><FaUserCircle /></h2>
+                            <p>Fabiana</p>
+                            <h5>Leal</h5>
                         </div>
 
                         <div>
-                            User 3
+                            <h2><FaUserCircle /></h2>
+                            <p>Fiorella</p>
+                            <h5>Leal</h5>
                         </div>
 
                         <div>
-                            User 4
+                            <h2><FaUserCircle /></h2>
+                            <p>Ruth</p>
+                            <h5>dos Anjos</h5>
                         </div>
 
                         <div>
-                            User 5
+                            <h2><FaUserCircle /></h2>
+                            <p>Alfredo</p>
+                            <h5>Pereira</h5>
                         </div>
 
                     </div>
 
+                </div>
+
+                <h4 className={styles.textoConsumo}>Consumo</h4>
+                <div className={styles.caixa6}>
+                    <div className={styles.textConsumo}>
+                        <h2><BiBarChart /></h2><p>Consumo</p>
+                    </div>
+                    <ProgressoMensal tipo={"area"}  />
                 </div>
 
             </div>

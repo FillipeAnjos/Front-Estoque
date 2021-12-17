@@ -1,8 +1,76 @@
 .container {
     display: grid;
     margin-top: 2rem;
-   
+    width: 70rem;
 
+    input {
+        height: 2rem;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+
+    .containerCodigoNome {
+        display: flex;
+        justify-content: space-between;
+        width: 50rem;
+
+        .produto {
+            width: 35rem;
+            height: 2rem;
+            padding-left: 0.5rem;
+        }
+    }
+
+    .containerCategoriaDescricao {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        width: 50rem;
+
+        .categoria {
+            display: flex;
+            height: 2rem;
+            width: 184px;
+            margin-top: 0.5rem;
+        }
+
+        .descricao {
+            width: 35rem;
+        }
+    }
+
+    .containerCorTamanho {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        width: 50rem;
+
+        .tamanho {
+            width: 35rem;
+        }
+    }
+
+    .containerTextarea {
+        margin-top: 1rem;
+        
+        textarea {
+            width: 50rem;
+            margin-top: 0.5rem;
+        }
+    }
+
+    .containerButton {
+        text-align: center;
+        width: 50rem;
+    }
+
+    button {
+        background: #000;
+        color: var(--white);
+        text-align: center;
+        margin-top: 1.0rem;
+    }
+        
 }
 
 
