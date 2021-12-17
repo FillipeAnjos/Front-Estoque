@@ -1,6 +1,6 @@
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { FiHome, FiHeart } from 'react-icons/fi';
-import { FcBriefcase , FcHome} from "react-icons/fc";
+import { FcBriefcase , FcHome, FcPaid } from "react-icons/fc";
 import Link from 'next/link';
 
 import styles from '../Sidebar/styles.module.scss';
@@ -24,11 +24,14 @@ export function Sidebar() {
                 <MenuItem icon={<FcHome />}>
                   <Link href="/home">Home</Link>
                 </MenuItem>
+                {/*<MenuItem icon={<FcPaid />}>
+                  <Link href="/home">Realizar Venda</Link>
+                </MenuItem>*/}
                 <SubMenu title="Produtos" icon={<FcBriefcase />}>
 
                   <SubMenu title="Inserir">
                     <MenuItem >
-                      <Link href="/produtoNovo">Produto</Link>
+                      <Link href="/produtoListar">Produto Listar</Link>
                     </MenuItem>
                     <MenuItem >
                       <Link href="/produtoQtd">Quantidade</Link>

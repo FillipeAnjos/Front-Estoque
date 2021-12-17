@@ -2,7 +2,9 @@
 import { useState } from 'react';
 import Chart from 'react-apexcharts';
 
-export default function ProgressoMensal(){
+export default function ProgressoMensal(props: any){
+
+    console.log(props);
 
     const [options, setOptions] = useState({
         chart: {
@@ -23,7 +25,7 @@ export default function ProgressoMensal(){
 
     return (
         <>
-            <Chart options={options} series={series} type="bar" height={300} />
+            <Chart options={options} series={series} type={props.tipo} height={300} />
         </>
     )
 }

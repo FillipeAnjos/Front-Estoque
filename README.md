@@ -1,5 +1,4 @@
 
-
 ## FRONT-AND
 
 npx create-next-app <nome projeto>
