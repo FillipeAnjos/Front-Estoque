@@ -1,9 +1,12 @@
 import Head from "next/head";
 import verificarAutenticidade from "../utils/verificarAutenticidade";
 import styles from '../components/ProdutoListar/styles.module.scss';
+import stylesPaginacao from '../components/Paginacao/styles.module.scss';
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { FcSearch } from "react-icons/fc";
+
+import ReactPaginate from "react-paginate";
 
 interface IProdutos{
     id: number[];
@@ -23,6 +26,19 @@ function ProdutoListar(){
     const [produtos, setProdutos] = useState<IProdutos[]>([]);
     const [filtro, setFiltro] = useState('0');
     const[dados, setDados] = useState('');
+
+    // ---------------------- Paginação ----------------------
+        const [pageNumber, setPageNumber] = useState(0);
+
+        const produtosPorPage = 10;
+        const pagesVisited = pageNumber * produtosPorPage;
+
+        const pageCount = Math.ceil(produtos.length / produtosPorPage);
+
+        const mudarPagina = ({ selected }) => {
+            setPageNumber(selected);
+        };
+    // -------------------------------------------------------
 
     useEffect(() => {
         
@@ -49,56 +65,77 @@ function ProdutoListar(){
                 param: dadosParam
             }
         }).then( (res) => {
-            console.log(res);
+            setProdutos(res.data.produtos);
         })
 
     }
 
-    return (
-        <>
-            <Head>
-                <title>Listar Produto</title>
-            </Head>
-            <div className={styles.container}>
-                <h2>Produto Listar</h2>
+  return (
+      <>
+        <Head>
+            <title>Listar Produto</title>
+        </Head>
+        <div className={styles.container}>
+            <h2>Produto Listar</h2>
 
-                <br/>
-                    <label>
-                        Pesquisar<br/>
-                        <select className={styles.categoria} value={filtro} onChange={ (event) => setFiltro(event.target.value) }>
-                                <option value="0">Selecione</option>
-                                <option value="1">Produto</option>
-                                <option value="2">Categoria</option>
-                                <option value="3">Descrição</option>
-                                <option value="4">Tamanho</option>
-                            </select>
-                        <div className={styles.pesquisar}>
-                            <input type="text" value={dados} onChange={ (event) => setDados(event.target.value) }/>
-                            <h1 title="Pesquisar produto?" onClick={ () => pesquisar()}><FcSearch /></h1>
-                        </div>
-                    </label>
-                <br/>
+            <br/>
+                <label>
+                    Pesquisar<br/>
+                    <select className={styles.categoria} value={filtro} onChange={ (event) => setFiltro(event.target.value) }>
+                            <option value="0">Selecione</option>
+                            <option value="1">Produto</option>
+                            <option value="2">Categoria</option>
+                            <option value="3">Descrição</option>
+                            <option value="4">Tamanho</option>
+                        </select>
+                    <div className={styles.pesquisar}>
+                        <input type="text" value={dados} onChange={ (event) => setDados(event.target.value) }/>
+                        <h1 title="Pesquisar produto?" onClick={ () => pesquisar()}><FcSearch /></h1>
+                    </div>
+                </label>
+            <br/>
 
-                    <table>
-                        <tr>
-                            <th>Produto</th>
-                            <th>Categoria</th>
-                            <th>Descrição</th>
-                        </tr>
-                        {produtos.map((ele) => {
-                            return (
-                                <tr>
-                                    <td>{ele.produto}</td>
-                                    <td>{ele.categoria}</td>
-                                    <td>{ele.descricao}</td>
-                                </tr>
-                            )
-                        })}
-                    </table>
+            <table>
+                <tr>
+                    <th>Interação</th>
+                    <th>Produto</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Tamanho</th>
+                </tr>
+                {produtos
+                    .slice(pagesVisited, pagesVisited + produtosPorPage)
+                    .map((ele) => {
+                        return (
+                            <tr>
+                                <td>{ele.id}</td>
+                                <td>{ele.produto}</td>
+                                <td>{ele.categoria}</td>
+                                <td>{ele.descricao}</td>
+                                <td>{ele.tamanho}</td>
+                            </tr>
+                        );
+                    })
+                }
+            </table>
 
-            </div>
-        </>
-    )
+            <br/><br/>
+
+            <ReactPaginate
+                previousLabel={"<<<"}
+                nextLabel={">>>"}
+                pageCount={pageCount}
+                onPageChange={mudarPagina}
+                containerClassName={stylesPaginacao.paginationBttns}
+                previousLinkClassName={stylesPaginacao.previousBttn}
+                nextLinkClassName={stylesPaginacao.nextBttn}
+                disabledClassName={stylesPaginacao.paginationDisabled}
+                activeClassName={stylesPaginacao.paginationActive}
+            />
+        </div>
+      </>
+  );
+
 }
 
 export default verificarAutenticidade(ProdutoListar);
