@@ -16,6 +16,10 @@ npm add axios
 npm add next-auth
 npm add @types/next-auth -D
 
+npm install react-paginate
+
+npm install @mui/material @emotion/react @emotion/styled
+
 ## BACK-END
 
 npm install typeorm
