@@ -31,7 +31,7 @@ export function Sidebar() {
 
                   <SubMenu title="Inserir">
                     <MenuItem >
-                      <Link href="/produtoListar">Produto Listar</Link>
+                      <Link href="/produto">Produto Listar</Link>
                     </MenuItem>
                     <MenuItem >
                       <Link href="/produtoQtd">Quantidade</Link>

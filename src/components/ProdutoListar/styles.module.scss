@@ -5,8 +5,9 @@
 
     select {
         margin-top: 0.5rem;
-        height: 1.6rem;
+        height: 2rem;
         width: 26%;
+        border-radius: 5px;
     }
 
     input {
@@ -25,5 +26,32 @@
             margin-left: 1rem;
             cursor: pointer;
         }
+    }
+
+    table {
+        width: 100%;
+        height: height;
+    }
+    
+    thead {
+        background: black;
+        color: white;
+        th {
+            padding: 0.6rem;
+        }
+    }
+    
+    tbody {
+        td {
+            border: 1px solid var(--gray-100);
+            padding: 0.5rem;
+        }
+    }
+
+    .acao {
+        display: flex;
+        justify-content: space-around;
+        cursor: pointer;
+        color: var(--elixir);
     }
 }

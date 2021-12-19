@@ -5,6 +5,7 @@ import stylesPaginacao from '../components/Paginacao/styles.module.scss';
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { FcSearch } from "react-icons/fc";
+import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 
 import ReactPaginate from "react-paginate";
 
@@ -42,14 +43,18 @@ function ProdutoListar(){
 
     useEffect(() => {
         
+        listarProdutos();
+
+    }, []);
+
+    function listarProdutos(){
         api({
             method: 'GET',
             url: '/listarProdutos'
         }).then( (res) => {
             setProdutos(res.data.produtos);
         })
-
-    }, []);
+    }
 
     function pesquisar() {
 
@@ -70,6 +75,31 @@ function ProdutoListar(){
 
     }
 
+    function acao( cond: number, id: number[] ){
+
+        if(cond == 0){
+            if(confirm("Deseja realmente desativar esse item?")){
+                api({
+                    method: 'POST',
+                    url: '/desativarItem',
+                    data: {
+                        param: id
+                    }
+                }).then( (res) => {
+                    listarProdutos();
+                        if(res.data.produto.success){
+                            alert(res.data.produto.success);
+                        }else{
+                            alert(res.data.produto.error);
+                        }
+                })
+            }
+        }else{
+            alert("Falta fazer o EDITAR!");
+        }
+
+    }
+
   return (
       <>
         <Head>
@@ -78,10 +108,12 @@ function ProdutoListar(){
         <div className={styles.container}>
             <h2>Produto Listar</h2>
 
+            <hr />
+
             <br/>
                 <label>
                     Pesquisar<br/>
-                    <select className={styles.categoria} value={filtro} onChange={ (event) => setFiltro(event.target.value) }>
+                    <select value={filtro} onChange={ (event) => setFiltro(event.target.value) }>
                             <option value="0">Selecione</option>
                             <option value="1">Produto</option>
                             <option value="2">Categoria</option>
@@ -95,14 +127,19 @@ function ProdutoListar(){
                 </label>
             <br/>
 
-            <table>
+            <table >
+                <thead>
                 <tr>
-                    <th>Interação</th>
+                    <th>Código</th>
                     <th>Produto</th>
                     <th>Categoria</th>
                     <th>Descrição</th>
                     <th>Tamanho</th>
+                    <th>Obs</th>
+                    <th>Ação</th>
                 </tr>
+                </thead>
+                <tbody>
                 {produtos
                     .slice(pagesVisited, pagesVisited + produtosPorPage)
                     .map((ele) => {
@@ -113,10 +150,20 @@ function ProdutoListar(){
                                 <td>{ele.categoria}</td>
                                 <td>{ele.descricao}</td>
                                 <td>{ele.tamanho}</td>
+                                <td>{ele.obs}</td>
+                                <td className={styles.acao}>
+                                    <h4 title="Inativar?" onClick={ () => acao(0, ele.id) }>
+                                        <FaTrashAlt />
+                                    </h4 >
+                                    <h4 title="Editar?" onClick={ () => acao(1, ele.id) }>
+                                        <FaPencilAlt />
+                                    </h4>
+                                </td>
                             </tr>
                         );
                     })
                 }
+                </tbody>
             </table>
 
             <br/><br/>
