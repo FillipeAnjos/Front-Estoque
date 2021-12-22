@@ -5,7 +5,8 @@ import stylesPaginacao from '../components/Paginacao/styles.module.scss';
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { FcSearch } from "react-icons/fc";
-import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
+import { ModalEditarPageListProduto } from "../components/Modal/ModalEditarPageListProduto"
 
 import ReactPaginate from "react-paginate";
 
@@ -16,6 +17,7 @@ interface IProdutos{
     descricao: string[];
     cor: string[];
     tamanho: string[];
+    valor: number[];
     obs: string[];
     status: boolean[];
     created_at: Date[];
@@ -75,29 +77,25 @@ function ProdutoListar(){
 
     }
 
-    function acao( cond: number, id: number[] ){
+    function acao( id: number[] ){
 
-        if(cond == 0){
-            if(confirm("Deseja realmente desativar esse item?")){
-                api({
-                    method: 'POST',
-                    url: '/desativarItem',
-                    data: {
-                        param: id
+        if(confirm("Deseja realmente desativar esse item?")){
+            api({
+                method: 'POST',
+                url: '/desativarItem',
+                data: {
+                    param: id
+                }
+            }).then( (res) => {
+                listarProdutos();
+                    if(res.data.produto.success){
+                        alert(res.data.produto.success);
+                    }else{
+                        alert(res.data.produto.error);
                     }
-                }).then( (res) => {
-                    listarProdutos();
-                        if(res.data.produto.success){
-                            alert(res.data.produto.success);
-                        }else{
-                            alert(res.data.produto.error);
-                        }
-                })
-            }
-        }else{
-            alert("Falta fazer o EDITAR!");
+            })
         }
-
+    
     }
 
   return (
@@ -136,6 +134,7 @@ function ProdutoListar(){
                     <th>Descrição</th>
                     <th>Tamanho</th>
                     <th>Obs</th>
+                    <th>Valor</th>
                     <th>Ação</th>
                 </tr>
                 </thead>
@@ -151,13 +150,12 @@ function ProdutoListar(){
                                 <td>{ele.descricao}</td>
                                 <td>{ele.tamanho}</td>
                                 <td>{ele.obs}</td>
+                                <td>R$ {ele.valor}</td>
                                 <td className={styles.acao}>
-                                    <h4 title="Inativar?" onClick={ () => acao(0, ele.id) }>
+                                    <h4 title="Inativar?" onClick={ () => acao(ele.id) }>
                                         <FaTrashAlt />
                                     </h4 >
-                                    <h4 title="Editar?" onClick={ () => acao(1, ele.id) }>
-                                        <FaPencilAlt />
-                                    </h4>
+                                    <ModalEditarPageListProduto produtoSelecionado={ele}/>
                                 </td>
                             </tr>
                         );
