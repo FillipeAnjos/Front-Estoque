@@ -1,5 +1,25 @@
+## About Estoque - FRONT-END
 
-## FRONT-AND
+Estoque - É um software que projeta todo o fluxo de estoque de uma loja de roupas, 
+desde a sua entrada e saída de estoque até o ínicio e final de uma venda.
+
+Com o projeto Estoque, você terá um sistema completo que irá suprir a necessidade
+de uma loja pequena.
+
+## Tecnologias 
+
+React Js / Next Js / Sass / TypeScript / JavaScript / TypeOrm / PostgreSQL
+
+## Instalação
+
+1° Clonar o projeto
+2° cd Front-Estoque
+3° npm install 
+4° npm run dev ou yarn dev 
+5° OBS: Esse projeto contém apenas o Front-End do sistema
+   o Back-end se encontra em outro repositório. 
+
+## Bibliotecas
 
 npx create-next-app <nome projeto>
 
@@ -41,4 +61,3 @@ npx typeorm migration:create -n Create<nome da migration>
 
 //Comando para rodar as migrations
 npm run typeorm migration:run
-

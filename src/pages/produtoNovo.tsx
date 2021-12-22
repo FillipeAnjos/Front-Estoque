@@ -12,11 +12,24 @@ function ProdutoNovo(){
     const [descricao, setDescricao] = useState('');
     const [cor, setCor] = useState('');
     const [tamanho, setTamanho] = useState('');
+    const [valor, setValor] = useState('0');
     const [obs, setObs] = useState('');
     const [status, setStatus] = useState(true);
 
     function cadastrar(event: FormEvent) {
         event.preventDefault();
+
+        if( codigo == null || 
+            produto == '' || 
+            categoria == '' || 
+            descricao == '' || 
+            cor == '' || 
+            tamanho == '' || 
+            valor == '0' || 
+            obs == ''){
+                alert("Favor preencher todos os campos.");
+                return false;
+        }
 
         var dados = {
             codigo: codigo,
@@ -25,6 +38,7 @@ function ProdutoNovo(){
             descricao: descricao,
             cor: cor,
             tamanho: tamanho,
+            valor: valor.replace(",", "."),
             obs: obs,
             status: status
         }
@@ -46,6 +60,7 @@ function ProdutoNovo(){
             setDescricao('');
             setCor('');
             setTamanho('');
+            setValor('0');
             setObs('');
         })
 
@@ -112,6 +127,13 @@ function ProdutoNovo(){
                         <label>
                             Tamanho<br/>
                             <input type="text" className={styles.tamanho} maxLength={10} value={tamanho} onChange={ (event) => setTamanho(event.target.value)} />
+                        </label>
+                    </div>
+
+                    <div className={styles.containerCorTamanho}>
+                        <label>
+                            Valor<br/>
+                            <input type="text" maxLength={30} value={valor} onChange={ (event) => setValor(event.target.value)} />
                         </label>
                     </div>
 
