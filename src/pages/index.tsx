@@ -12,11 +12,11 @@ export default function Home() {
 
   return session != null ? (
     <>
-        <HomePage />
+      <HomePage />
     </>
   ) : (
    <>
-        <CriarConta />
+      <CriarConta />
    </>
   )
 }
