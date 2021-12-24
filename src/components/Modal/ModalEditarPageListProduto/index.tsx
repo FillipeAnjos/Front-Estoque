@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -6,6 +6,8 @@ import Fade from '@mui/material/Fade';
 import styles from "../ModalEditarPageListProduto/styles.module.scss";
 import { FaPencilAlt } from "react-icons/fa";
 import { api } from '../../../services/api';
+import { contextProdutos } from '../../../hooks/useContextProdutos';
+import { useRouter } from 'next/router';
 
 interface IProdutoEditar{
     categoria: string;
@@ -34,6 +36,9 @@ export function ModalEditarPageListProduto(props: any){
     const [obs, setObs] = useState('');
     const [status, setStatus] = useState(true);
 
+    let { editarProduto } = useContext(contextProdutos);
+    const router = useRouter();
+
     function abrirModal() {
         setOpen(true);
         setCodigo(props.produtoSelecionado.id);
@@ -48,7 +53,7 @@ export function ModalEditarPageListProduto(props: any){
 
     const fecharModal = () => setOpen(false);
 
-    function Editar(event: FormEvent){
+    async function Editar(event: FormEvent){
         event.preventDefault();
 
         if( codigo == null || 
@@ -70,33 +75,18 @@ export function ModalEditarPageListProduto(props: any){
             descricao: descricao,
             cor: cor,
             tamanho: tamanho,
-            valor: valor.toString().replace(",", "."),
+            valor: parseInt(valor.toString().replace(",", ".")),
             obs: obs,
             status: status
         }
+        
+        await editarProduto(dados);
 
-        api({
-            method: 'POST',
-            url: '/editarProduto',
-            data: {
-                param: dados
-            }
-        }).then( (res) => {
-            fecharModal();
-            
+        fecharModal();
 
-
-
-
-
-
-            
-            if(res.data.produto.success){
-                alert(res.data.produto.success);
-            }else{
-                alert(res.data.produto.error);
-            }
-        })
+        alert("Produto alterado com sucesso!");
+        
+        router.push('/home');
 
     }
 
