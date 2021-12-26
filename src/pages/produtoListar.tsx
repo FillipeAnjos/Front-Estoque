@@ -7,8 +7,10 @@ import { api } from "../services/api";
 import { FcSearch } from "react-icons/fc";
 import { FaTrashAlt } from "react-icons/fa";
 import { ModalEditarPageListProduto } from "../components/Modal/ModalEditarPageListProduto"
+import ActionAlerts from "../components/Alert"; 
 
 import ReactPaginate from "react-paginate";
+
 
 interface IProdutos{
     id: number[];
@@ -29,7 +31,13 @@ function ProdutoListar(){
 
     const [produtos, setProdutos] = useState<IProdutos[]>([]);
     const [filtro, setFiltro] = useState('0');
-    const[dados, setDados] = useState('');
+    const [dados, setDados] = useState('');
+    
+    // ---------------------- Alerta ----------------------
+        const [alerta, setAlerta] = useState(false);
+        const [alertatipo, setAlertatipo] = useState('');
+        const [alertamsg, setAlertamsg] = useState('');
+    // -------------------------------------------------------
 
     // ---------------------- Paginação ----------------------
         const [pageNumber, setPageNumber] = useState(0);
@@ -92,7 +100,12 @@ function ProdutoListar(){
             }).then( (res) => {
                 listarProdutos();
                     if(res.data.produto.success){
-                        alert(res.data.produto.success);
+                        //alert(res.data.produto.success);
+
+                        setAlertatipo('success');
+                        setAlertamsg(res.data.produto.success);
+                        estadoAlerta();
+
                     }else{
                         alert(res.data.produto.error);
                     }
@@ -101,11 +114,26 @@ function ProdutoListar(){
     
     }
 
+    function estadoAlerta(){
+        alerta == true ? setAlerta(false) : setAlerta(true);
+    }
+
   return (
       <>
         <Head>
             <title>Listar Produto</title>
         </Head>
+
+        {alerta == true 
+            ? <ActionAlerts 
+                estado={alerta} 
+                alterarEstadoDoAlertaDoPai={estadoAlerta} 
+                tipo={alertatipo}
+                mensagem={alertamsg}
+              />  
+            : ''
+        }
+        
         <div className={styles.container}>
             <h2>Produtos Ativos</h2>
 
@@ -145,9 +173,9 @@ function ProdutoListar(){
                 <tbody>
                 {produtos
                     .slice(pagesVisited, pagesVisited + produtosPorPage)
-                    .map((ele) => {
+                    .map((ele, index) => {
                         return (
-                            <tr>
+                            <tr key={index}>
                                 <td>{ele.id}</td>
                                 <td>{ele.produto}</td>
                                 <td>{ele.categoria}</td>
@@ -182,6 +210,7 @@ function ProdutoListar(){
                 disabledClassName={stylesPaginacao.paginationDisabled}
                 activeClassName={stylesPaginacao.paginationActive}
             />
+
         </div>
       </>
   );

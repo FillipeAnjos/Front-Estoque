@@ -40,6 +40,10 @@ npm install react-paginate
 
 npm install @mui/material @emotion/react @emotion/styled
 
+npm i @material-ui/lab
+
+npm i @material-ui/core
+
 ## BACK-END
 
 npm install typeorm
