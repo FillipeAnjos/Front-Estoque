@@ -3,6 +3,7 @@ import verificarAutenticidade from "../utils/verificarAutenticidade"
 import styles from '../components/ProdutoNovo/styles.module.scss';
 import { FormEvent, useEffect, useState } from "react";
 import { api } from "../services/api";
+import ActionAlerts from "../components/Alert";
 
 function ProdutoNovo(){
 
@@ -15,6 +16,23 @@ function ProdutoNovo(){
     const [valor, setValor] = useState('0');
     const [obs, setObs] = useState('');
     const [status, setStatus] = useState(true);
+
+    // ---------------------- Alerta ----------------------
+        const [alerta, setAlerta] = useState(false);
+        const [alertatipo, setAlertatipo] = useState('');
+        const [alertamsg, setAlertamsg] = useState('');
+    // -------------------------------------------------------
+    
+    useEffect( () => {
+
+        api({
+            method: 'POST',
+            url: '/buscarCodProd'
+        }).then( (res) => {
+            setCodigo(res.data.resposta.qtd);
+        })
+
+    }, [])
 
     function cadastrar(event: FormEvent) {
         event.preventDefault();
@@ -51,7 +69,11 @@ function ProdutoNovo(){
             }
         }).then( (res) => {
 
-            alert(res.data.produto.success);
+            //alert(res.data.produto.success);
+
+            setAlertatipo('success');
+            setAlertamsg(res.data.produto.success);
+            estadoAlerta();
 
             var cod = codigo + 1;
             setCodigo(cod);
@@ -66,22 +88,26 @@ function ProdutoNovo(){
 
     }
 
-    useEffect( () => {
-
-        api({
-            method: 'POST',
-            url: '/buscarCodProd'
-        }).then( (res) => {
-            setCodigo(res.data.resposta.qtd);
-        })
-
-    }, [])
+    function estadoAlerta(){
+        alerta == true ? setAlerta(false) : setAlerta(true);
+    }
 
     return (
         <>
             <Head>
                 <title>Novo Produto</title>
             </Head>
+
+            {alerta == true 
+                ? <ActionAlerts 
+                    estado={alerta} 
+                    alterarEstadoDoAlertaDoPai={estadoAlerta} 
+                    tipo={alertatipo}
+                    mensagem={alertamsg}
+                />  
+                : ''
+            }
+
             <form onSubmit={cadastrar}>
                 <div className={styles.container}>
                     <h2>Produto Novo</h2>

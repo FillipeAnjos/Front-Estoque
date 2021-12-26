@@ -9,6 +9,7 @@ import { FaCheck } from "react-icons/fa";
 import { ModalEditarPageListProduto } from "../components/Modal/ModalEditarPageListProduto"
 
 import ReactPaginate from "react-paginate";
+import ActionAlerts from "../components/Alert";
 
 interface IProdutos{
     id: number[];
@@ -30,6 +31,12 @@ function ProdutoListarInativos(){
     const [produtos, setProdutos] = useState<IProdutos[]>([]);
     const [filtro, setFiltro] = useState('0');
     const[dados, setDados] = useState('');
+
+    // ---------------------- Alerta ----------------------
+    const [alerta, setAlerta] = useState(false);
+    const [alertatipo, setAlertatipo] = useState('');
+    const [alertamsg, setAlertamsg] = useState('');
+// -------------------------------------------------------
 
     // ---------------------- Paginação ----------------------
         const [pageNumber, setPageNumber] = useState(0);
@@ -92,7 +99,11 @@ function ProdutoListarInativos(){
             }).then( (res) => {
                 listarProdutosInativos();
                     if(res.data.produto.success){
-                        alert(res.data.produto.success);
+                        //alert(res.data.produto.success);
+
+                        setAlertatipo('success');
+                        setAlertamsg(res.data.produto.success);
+                        estadoAlerta();
                     }else{
                         alert(res.data.produto.error);
                     }
@@ -101,11 +112,26 @@ function ProdutoListarInativos(){
     
     }
 
+    function estadoAlerta(){
+        alerta == true ? setAlerta(false) : setAlerta(true);
+    }
+
   return (
       <>
         <Head>
             <title>Listar Produto Inativos</title>
         </Head>
+
+        {alerta == true 
+            ? <ActionAlerts 
+                estado={alerta} 
+                alterarEstadoDoAlertaDoPai={estadoAlerta} 
+                tipo={alertatipo}
+                mensagem={alertamsg}
+              />  
+            : ''
+        }
+
         <div className={styles.container}>
             <h2>Produtos Inativos</h2>
 
@@ -145,9 +171,9 @@ function ProdutoListarInativos(){
                 <tbody>
                 {produtos
                     .slice(pagesVisited, pagesVisited + produtosPorPage)
-                    .map((ele) => {
+                    .map((ele, index) => {
                         return (
-                            <tr>
+                            <tr key={index}>
                                 <td>{ele.id}</td>
                                 <td>{ele.produto}</td>
                                 <td>{ele.categoria}</td>
