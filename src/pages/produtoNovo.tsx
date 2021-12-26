@@ -21,7 +21,7 @@ function ProdutoNovo(){
 
         if( codigo == null || 
             produto == '' || 
-            categoria == '' || 
+            categoria == '0' || 
             descricao == '' || 
             cor == '' || 
             tamanho == '' || 
@@ -105,12 +105,12 @@ function ProdutoNovo(){
                             Categoria
                             <select className={styles.categoria} value={categoria} onChange={ (event) => setCategoria(event.target.value) }>
                                 <option value="0">Selecione</option>
-                                <option value="1">Blusa</option>
-                                <option value="2">Calça</option>
-                                <option value="3">Peça única</option>
-                                <option value="4">Conjunto</option>
-                                <option value="5">Assessórios</option>
-                                <option value="6">Calçados</option>
+                                <option value="Blusa">Blusa</option>
+                                <option value="Calca">Calça</option>
+                                <option value="Peca unica">Peça única</option>
+                                <option value="Conjunto">Conjunto</option>
+                                <option value="Assessorios">Assessórios</option>
+                                <option value="Calcados">Calçados</option>
                             </select>
                         </label>
                         <label>

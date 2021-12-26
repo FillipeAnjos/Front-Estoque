@@ -5,7 +5,7 @@ import stylesPaginacao from '../components/Paginacao/styles.module.scss';
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { FcSearch } from "react-icons/fc";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 import { ModalEditarPageListProduto } from "../components/Modal/ModalEditarPageListProduto"
 
 import ReactPaginate from "react-paginate";
@@ -25,7 +25,7 @@ interface IProdutos{
     saldo?: number; 
 }
 
-function ProdutoListar(){
+function ProdutoListarInativos(){
 
     const [produtos, setProdutos] = useState<IProdutos[]>([]);
     const [filtro, setFiltro] = useState('0');
@@ -46,14 +46,14 @@ function ProdutoListar(){
 
     useEffect(() => {
         
-        listarProdutos();
+        listarProdutosInativos();
 
     }, []);
 
-    function listarProdutos(){
+    function listarProdutosInativos(){
         api({
             method: 'GET',
-            url: '/listarProdutos'
+            url: '/listarProdutosInativos'
         }).then( (res) => {
             setProdutos(res.data.produtos);
         })
@@ -64,7 +64,7 @@ function ProdutoListar(){
         var dadosParam = {
             filtro: filtro,
             dados: dados,
-            acao: true
+            acao: false
         }
         
         api({
@@ -81,16 +81,16 @@ function ProdutoListar(){
 
     function acao( id: number[] ){
 
-        if(confirm("Deseja realmente desativar esse item?")){
+        if(confirm("Deseja realmente ativar esse item?")){
             api({
                 method: 'POST',
                 url: '/desativarAtivarItem',
                 data: {
                     id: id,
-                    acao: false
+                    acao: true
                 }
             }).then( (res) => {
-                listarProdutos();
+                listarProdutosInativos();
                     if(res.data.produto.success){
                         alert(res.data.produto.success);
                     }else{
@@ -104,10 +104,10 @@ function ProdutoListar(){
   return (
       <>
         <Head>
-            <title>Listar Produto</title>
+            <title>Listar Produto Inativos</title>
         </Head>
         <div className={styles.container}>
-            <h2>Produtos Ativos</h2>
+            <h2>Produtos Inativos</h2>
 
             <hr />
 
@@ -157,10 +157,10 @@ function ProdutoListar(){
                                 <td>{ele.saldo}</td>
                                 <td>R$ {ele.valor}</td>
                                 <td className={styles.acao}>
-                                    <h4 title="Inativar?" onClick={ () => acao(ele.id) }>
-                                        <FaTrashAlt />
+                                    <h4 title="Ativar?" onClick={ () => acao(ele.id) }>
+                                        <FaCheck />
                                     </h4 >
-                                    <ModalEditarPageListProduto produtoSelecionado={ele}/>
+                                    <ModalEditarPageListProduto produtoSelecionado={ele} />
                                 </td>
                             </tr>
                         );
@@ -188,4 +188,4 @@ function ProdutoListar(){
 
 }
 
-export default verificarAutenticidade(ProdutoListar);
+export default verificarAutenticidade(ProdutoListarInativos);
