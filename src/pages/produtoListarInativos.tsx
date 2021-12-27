@@ -23,7 +23,7 @@ interface IProdutos{
     status: boolean[];
     created_at: Date[];
     updated_at: Date[];
-    saldo?: number; 
+    quantidade?: number; 
 }
 
 function ProdutoListarInativos(){
@@ -180,7 +180,7 @@ function ProdutoListarInativos(){
                                 <td>{ele.descricao}</td>
                                 <td>{ele.tamanho}</td>
                                 <td>{ele.obs}</td>
-                                <td>{ele.saldo}</td>
+                                <td>{ele.quantidade}</td>
                                 <td>R$ {ele.valor}</td>
                                 <td className={styles.acao}>
                                     <h4 title="Ativar?" onClick={ () => acao(ele.id) }>
