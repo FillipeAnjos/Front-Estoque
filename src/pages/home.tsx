@@ -3,7 +3,7 @@ import verificarAutenticidade from "../utils/verificarAutenticidade";
 import styles from '../components/HomePage/styles.module.scss';
 import imgHome from '../../public/imagens/home/home1.png';
 import Image from "next/image";
-import { WiThermometerExterior, WiCloud } from 'react-icons/wi';
+import { WiCloud } from 'react-icons/wi';
 import { AiFillDollarCircle } from 'react-icons/ai';
 import { BiBarChart } from 'react-icons/bi';
 import { RiBarcodeFill, RiTruckFill } from 'react-icons/ri';
@@ -12,6 +12,7 @@ import { FaTruck, FaUserCircle } from 'react-icons/fa';
 import { IoIosSettings, IoLogoFacebook, IoIosNotifications, IoMdHelpCircleOutline, IoMdPerson, IoIosPaper, IoLogoInstagram } from 'react-icons/io';
 import { useSession } from "next-auth/react";
 import ProgressoMensal from '../components/ProgressoMensal';
+import Temperatura from "../components/Temperatura";
 
 function Home(){
 
@@ -52,11 +53,10 @@ function Home(){
                         <h2>Olá. {/*session.user.name.nome*/}Falta fazer! </h2>
                         <p>
                             Você sabia que pode gerenciar sua empresa com um sistema?<br/>
-                            A tecnologia veio par agilizar o nosso trabalho.
+                            A tecnologia veio para agilizar o nosso trabalho.
                         </p>
                         <div className={styles.temperatura}>
-                            <h3><WiThermometerExterior /></h3>
-                            <h4>+ 25°C Temperatura</h4>
+                            <Temperatura />
                         </div>
                         <div className={styles.nuvem}>
                             <h3><WiCloud /></h3>
