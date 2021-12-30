@@ -22,17 +22,20 @@ export function Sidebar() {
                   <h2 className={styles.logout} title='Deseja deslogar?' onClick={ () => signOut() }><AiOutlineLogout /></h2>
                 </MenuItem>
                 <MenuItem icon={<FcHome />}>
-                  <Link href="/home">Home</Link>
+                  <Link href="/">Home</Link>
                 </MenuItem>
-                {/*<MenuItem icon={<FcPaid />}>
-                  <Link href="/home">Realizar Venda</Link>
-                </MenuItem>*/}
+                <MenuItem icon={<FcPaid />}>
+                  <Link href="/Venda">Realizar Venda</Link>
+                </MenuItem>
                 <SubMenu title="Produtos" icon={<FcBriefcase />}>
 
                   <SubMenu title="Inserir">
                     <MenuItem >
-                      <Link href="/produto">Produto Listar</Link>
+                      <Link href="/produto">Listar / Novo</Link>
                     </MenuItem>
+                  </SubMenu>
+
+                  <SubMenu title="Balanço">
                     <MenuItem >
                       <Link href="/produtoQtd">Balanço</Link>
                     </MenuItem>
