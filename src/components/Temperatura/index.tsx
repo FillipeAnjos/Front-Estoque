@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { WiThermometerExterior } from 'react-icons/wi';
 
-export default function Temperatura(){
+export default function Temperatura({ chaveTemperatuda }){
 
     const [temp, setTemp] = useState('');
 
@@ -15,7 +15,7 @@ export default function Temperatura(){
         navigator.geolocation.getCurrentPosition((pos) => {
           let lat = pos.coords.latitude;
           let long = pos.coords.longitude;
-          url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=imperial&APPID=95b11822eb429c84c1143a19251b1881`;
+          url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=imperial&APPID=${chaveTemperatuda}`;
           fetchApi(url);
         });
 
@@ -29,7 +29,8 @@ export default function Temperatura(){
         })
         .then((data) => {
           let tempInCelsius = ((5/9) * (data.main.temp-32)).toFixed(1);
-          setTemp(`+ ${tempInCelsius}°C Temperatura`);
+          var partTemp = tempInCelsius.split('.'); 
+          setTemp(`+ ${partTemp[0]}°C Temperatura`);
         })
         .catch((err) => {
           console.log("Error: " + err);

@@ -9,12 +9,37 @@ import { BiBarChart } from 'react-icons/bi';
 import { RiBarcodeFill, RiTruckFill } from 'react-icons/ri';
 import { IoPeopleSharp } from 'react-icons/io5';
 import { FaTruck, FaUserCircle } from 'react-icons/fa';
-import { IoIosSettings, IoLogoFacebook, IoIosNotifications, IoMdHelpCircleOutline, IoMdPerson, IoIosPaper, IoLogoInstagram } from 'react-icons/io';
+import { IoIosSettings, IoLogoFacebook, IoIosNotifications, IoLogoWhatsapp, IoMdHelpCircleOutline, IoMdPerson, IoIosPaper, IoLogoInstagram } from 'react-icons/io';
 import { useSession } from "next-auth/react";
 import ProgressoMensal from '../components/ProgressoMensal';
 import Temperatura from "../components/Temperatura";
+import { useEffect, useState } from "react";
+import { api } from "../services/api";
 
-function Home(){
+function Home(props: any){
+
+    const [caixa, setCaixa] = useState(0);
+
+    useEffect( () => {
+        
+        buscarStatusCaixa();
+
+    }, [])
+
+    function buscarStatusCaixa(){
+        api({
+            method: 'GET',
+            url: '/buscarStatusCaixa'
+        }).then((res) => {
+            if(res.data.fechamento == 1){
+                setCaixa(1)
+            }else if(res.data.fechamento == 2){
+                setCaixa(2)
+            }else{
+                setCaixa(3)
+            }
+        })
+    }
 
     function cubo(condition: number){
         
@@ -37,6 +62,71 @@ function Home(){
         
     }
 
+    function salvarFechamento(param: boolean){
+
+        if(param == true){
+            setCaixa(2);
+        }else{
+            setCaixa(3);
+        }
+
+    }
+
+    function fechamento(condition: number){
+
+        switch (condition) {
+            case 1:
+                return (
+                    <>
+                        <div className={styles.fechamentoStatus}>
+                            <div className={styles.bloco1}>
+                                Show de Bola
+                            </div>
+        
+                            <div className={styles.bloco2Inicio} onClick={() => salvarFechamento(true)}>
+                                <p>Abrir caixa</p>
+                            </div>
+                        </div>
+                    </>
+                )
+                break;
+            case 2:
+                return (
+                    <>
+                        <div className={styles.fechamentoStatus}>
+                            <div className={styles.bloco1}>
+                                Show de Bola
+                            </div>
+        
+                            <div className={styles.bloco2Meio} onClick={() => salvarFechamento(false)}>
+                                <p>Caixa aberto</p>
+                            </div>
+                        </div>
+                    </>
+                )
+                break;
+            case 3:
+                return (
+                    <>
+                        <div className={styles.fechamentoStatus}>
+                            <div className={styles.bloco1}>
+                                Show de Bola
+                            </div>
+        
+                            <div className={styles.bloco2Fim}>
+                                <p>Caixa fechado</p>
+                            </div>
+                        </div>
+                    </>
+                )
+                break;
+        
+            default:
+                break;
+        }
+
+    }
+
     const {data: session} = useSession();
 
     return (
@@ -56,7 +146,7 @@ function Home(){
                             A tecnologia veio para agilizar o nosso trabalho.
                         </p>
                         <div className={styles.temperatura}>
-                            <Temperatura />
+                            <Temperatura chaveTemperatuda={props.chaveTemperatuda} />
                         </div>
                         <div className={styles.nuvem}>
                             <h3><WiCloud /></h3>
@@ -70,28 +160,28 @@ function Home(){
                     
                     <div className={styles.cubo} onClick={ () => cubo(1) }>
                         <div className={styles.cubo1}>
-                            <h1><FaTruck /></h1>
+                            <h2><FaTruck /></h2>
                             <h4>Fornecedores</h4>
                         </div>
                     </div>
 
                     <div className={styles.cubo} onClick={ () => cubo(2) }>
                         <div className={styles.cubo2}>
-                            <h1><IoPeopleSharp /></h1>
+                            <h2><IoPeopleSharp /></h2>
                             <p>Clientes</p>
                         </div>
                     </div>
 
                     <div className={styles.cubo} onClick={ () => cubo(3) }>
                         <div className={styles.cubo3}>
-                            <h1><RiBarcodeFill /></h1>
+                            <h2><RiBarcodeFill /></h2>
                             <h4>Produtos</h4>
                         </div>
                     </div>
 
                     <div className={styles.cubo} onClick={ () => cubo(4) }>
                         <div className={styles.cubo4}>
-                            <h1><AiFillDollarCircle /></h1>
+                            <h2><AiFillDollarCircle /></h2>
                             <h4>Vendas</h4>
                         </div>
                     </div>
@@ -110,36 +200,36 @@ function Home(){
             <div className={styles.container2}>
 
                 <div className={styles.redesSociais}>
-                    <h2 title="Suas anotações"><IoIosPaper /></h2>
-                    <h2 title="Configurações"><IoIosSettings /></h2>
-                    {/*<h2 title="9dades"><IoIosNotifications /></h2>*/}
-                    <h2 title="Usuários do sistema"><IoMdPerson /></h2>
-                    <h2 title="Instagram"><IoLogoInstagram /></h2>
-                    <h2 title="Facebook"><IoLogoFacebook /></h2>
-                    <h2 title="Ajuda"><IoMdHelpCircleOutline /></h2>
+                    {/*<a href="" target="_blank"><h2 title="Suas anotações"><IoIosPaper /></h2></a>*/}
+                    <a href="" target="_blank"><h2 title="Configurações"><IoIosSettings /></h2></a>
+                    {/*<a href="" target="_blank"><h2 title="9dades"><IoIosNotifications /></h2></a>*/}
+                    <a href="" target="_blank"><h2 title="Usuários do sistema"><IoMdPerson /></h2></a>
+                    <a href="https://www.instagram.com/" target="_blank"><h2 title="Instagram"><IoLogoInstagram /></h2></a>
+                    <a href="https://www.facebook.com/" target="_blank"><h2 title="Facebook"><IoLogoFacebook /></h2></a>
+                    <a href="https://web.whatsapp.com" target="_blank"><h2 title="Whatsapp"><IoLogoWhatsapp /></h2></a>
+                    <a href="/ajuda" target="_blank"><h2 title="Ajuda"><IoMdHelpCircleOutline /></h2></a>
                 </div>
-
+                
                 <div className={styles.caixa4}>
-                    
+                    {/*
                     <div className={styles.modelo1}>
                         <div>
-                            Caixa da loja
+                            Abrir Caixa 
                         </div>
-
-                        <div>
-                            Caixinha 2
-                        </div>
+                        
                     </div>
 
                     <div className={styles.modelo2}>
                         <div>
-                            Permissões
+                            Fechar Caixa
                         </div>
 
-                        <div>
-                            Caixinha 4
-                        </div>
                     </div>
+                    */}
+
+                    {/* #00af00   #df0000 */}
+
+                    { fechamento(caixa) }                    
 
                 </div>
 
@@ -148,31 +238,31 @@ function Home(){
                     
                     <div className={styles.usersSistem}>
                         <div>
-                            <h2><FaUserCircle /></h2>
+                            <h3><FaUserCircle /></h3>
                             <p>Fillipe</p>
                             <h5>dos Anjos</h5>
                         </div>
 
                         <div>
-                            <h2><FaUserCircle /></h2>
+                            <h3><FaUserCircle /></h3>
                             <p>Fabiana</p>
                             <h5>Leal</h5>
                         </div>
 
                         <div>
-                            <h2><FaUserCircle /></h2>
+                            <h3><FaUserCircle /></h3>
                             <p>Fiorella</p>
                             <h5>Leal</h5>
                         </div>
 
                         <div>
-                            <h2><FaUserCircle /></h2>
+                            <h3><FaUserCircle /></h3>
                             <p>Ruth</p>
                             <h5>dos Anjos</h5>
                         </div>
 
                         <div>
-                            <h2><FaUserCircle /></h2>
+                            <h3><FaUserCircle /></h3>
                             <p>Alfredo</p>
                             <h5>Pereira</h5>
                         </div>

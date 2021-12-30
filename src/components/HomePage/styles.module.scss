@@ -17,9 +17,14 @@
             display: inline;
             margin-Top: 1rem;
             margin-left: 1rem;
+
+            h2 {
+                margin-top: -1rem;
+            }
             
             p {
                 margin-top: 1rem;
+                font-size: 0.8rem;
             }
 
             .temperatura {
@@ -47,7 +52,7 @@
             box-shadow: 1px 1px 5px #303030;
             border-radius: 10px;
             width: 20%;
-            height: 8rem;
+            height: 6rem;
             
             display: flex;
             flex-direction: column;
@@ -147,7 +152,7 @@
     .redesSociais {
         display: flex;
         justify-content: right;
-        cursor: pointer;
+        //cursor: pointer;
 
         h2 {
             margin-left: 1rem;
@@ -156,14 +161,90 @@
 
     .caixa4 {
         margin-top: 1.2rem;
-        height: 15rem;
+        height: 12.9rem;
         border: 0;
         box-shadow: 1px 1px 5px #303030;
         border-radius: 10px;
 
         display: flex;
+        flex-direction: row;
         justify-content: space-between;
+
+
+        .fechamentoStatus {
+
+            width: 100%;
+            margin: 1rem;
+            //background: cyan;
+            max-height: 100%;
+
+            .bloco1 {
+                //background: crimson;
+                height: 70%;
+            }
+            
+            .bloco2Inicio {
+                background: #808080;
+                height: 2.5rem;
+                border-radius: 6px;
+                cursor: pointer;
+                
+                p {
+                    color: #fff;
+                    font-size: 1.0rem;
+                    text-align: center;
+                    padding-top: 0.6rem;
+                }
+
+                transition: filter 0.3s;
+
+                &:hover {
+                    filter: brightness(0.8);
+                }
+            }
+
+            .bloco2Meio {
+                background: #00af00;
+                height: 2.5rem;
+                border-radius: 6px;
+                cursor: pointer;
+                
+                p {
+                    color: var(--white);
+                    font-size: 1.0rem;
+                    text-align: center;
+                    padding-top: 0.6rem;
+                }
+
+                transition: filter 0.3s;
+
+                &:hover {
+                    filter: brightness(0.8);
+                }
+            }
+
+            .bloco2Fim {
+                background: #df0000;
+                height: 2.5rem;
+                border-radius: 6px;
+                cursor: pointer;
+                
+                p {
+                    color: var(--white);
+                    font-size: 1.0rem;
+                    text-align: center;
+                    padding-top: 0.6rem;
+                }
+
+                transition: filter 0.3s;
+
+                &:hover {
+                    filter: brightness(0.8);
+                }
+            }
+        }
         
+        /*
         .modelo1 {
             width: 55%;
 
@@ -171,7 +252,7 @@
                 background-color: var(--yellow);
                 margin: 1rem;
                 border-radius: 20px;
-                height: 6.0rem;
+                height: 5.0rem;
                 
                 display: flex;
                 flex-direction: column;
@@ -187,7 +268,7 @@
                 background-color: var(--yellow);
                 margin: 1rem;
                 border-radius: 20px;
-                height: 6.0rem;
+                height: 5.0rem;
                 
                 display: flex;
                 flex-direction: column;
@@ -195,10 +276,11 @@
                 align-items: center;
             }
         }
+        */
     }
 
     .textoMembros {
-        margin-top: 1.5rem;
+        margin-top: 1.0rem;
         margin-bottom: 0.5rem;
     }
 
@@ -222,17 +304,19 @@
 
                 p {
                     font-weight: 500;
+                    font-size: 0.8rem;
                 }
 
                 h5 {
                     font-weight: 500;
+                    font-size: 0.7rem;
                 }
             }
         }
     }
 
     .textoConsumo {
-        margin-top: 1.1rem;
+        margin-top: 1.0rem;
         margin-bottom: 0.5rem;
     }
 
