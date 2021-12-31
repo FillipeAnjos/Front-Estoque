@@ -44,6 +44,8 @@ npm i @material-ui/lab
 
 npm i @material-ui/core
 
+npm install moment --save
+
 ## BACK-END
 
 npm install typeorm
