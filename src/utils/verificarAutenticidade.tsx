@@ -13,9 +13,9 @@ export default function verificarAutenticidade(WrappedComponent: ElementType){
         
         useEffect(() => {
 
-            /*if(!session){
+            if(!session){
                 router.replace('/');
-            }*/
+            }
 
         }, []);
         

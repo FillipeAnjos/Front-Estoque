@@ -8,18 +8,26 @@ import { signOut, useSession } from 'next-auth/react';
 
 import { AiOutlineLogout } from 'react-icons/ai';
 
+import { useRouter } from "next/router";
+
 export function Sidebar() {
 
     const {data: session} = useSession();
+    const router = useRouter();
+
+    function deslogar(){
+      router.push('/criarConta');
+      signOut();
+    }
 
     return (
         <>
           <ProSidebar className={styles.provider}>
           <Menu iconShape="square">
-            {!session ? 
+            {session ? 
               <>
                 <MenuItem>
-                  <h2 className={styles.logout} title='Deseja deslogar?' onClick={ () => signOut() }><AiOutlineLogout /></h2>
+                  <h2 className={styles.logout} title='Deseja deslogar?' onClick={ () => deslogar() }><AiOutlineLogout /></h2>
                 </MenuItem>
                 <MenuItem icon={<FcHome />}>
                   <Link href="/">Home</Link>

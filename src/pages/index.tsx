@@ -11,22 +11,22 @@ export const getStaticProps = async () => {
   return {
       props: {
           chave_OpenWeatherMap: process.env.NEXT_PUBLIC_CHAVE_API_OpenWeatherMap,
+          chave_adm: process.env.NEXT_PUBLIC_CHAVE_SENHA_ADM,
       }
   }
 }
 
-export default function Home({ chave_OpenWeatherMap }) {
+export default function Home({ chave_OpenWeatherMap, chave_adm }) {
 
   const {data: session} = useSession();
 
-  //return session != null ? (
-    return session == null ? (
+  return session != null ? (
     <>
       <HomePage chaveTemperatuda={chave_OpenWeatherMap} />
     </>
   ) : (
    <>
-      <CriarConta />
+      <CriarConta chave_adm={chave_adm} />
    </>
   )
 }

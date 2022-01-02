@@ -4,7 +4,16 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import styles from '../components/CriarConta/styles.module.scss';
 import { api } from '../services/api';
 
-export default function CriarConta() {
+export const getStaticProps = async () => {
+
+    return {
+        props: {
+            chave_adm: process.env.NEXT_PUBLIC_CHAVE_SENHA_ADM,
+        }
+    }
+  }
+
+export default function CriarConta(props: any) {
 
     const [nome, setNome] = useState('');
     const [sobre, setSobre] = useState('');
@@ -26,7 +35,8 @@ export default function CriarConta() {
             senha: senha,
             nascimento: nascimento,
             genero: genero,
-            admin: admin
+            admin: admin,
+            senhaadm: props.chave_adm
         }
 
         api({
@@ -36,7 +46,6 @@ export default function CriarConta() {
                 param: dados
             }
         }).then( (res) => {
-            //console.log(res);
 
             if(res.data.user.success){
                 

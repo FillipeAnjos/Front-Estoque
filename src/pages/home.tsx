@@ -20,11 +20,20 @@ import ActionAlerts from "../components/Alert";
 
 function Home(props: any){
 
+    const {data: session} = useSession();
+
     // ------------------------ Alerta -----------------------
         const [alerta, setAlerta] = useState(false);
         const [alertatipo, setAlertatipo] = useState('');
         const [alertamsg, setAlertamsg] = useState('');
     // -------------------------------------------------------
+
+    var nomeUsuario = null;
+    if(session){
+        nomeUsuario = session.user.name;
+    }
+
+    const [nomeuser, setNomeuser] = useState(nomeUsuario);
 
     const [caixa, setCaixa] = useState(0);
     const [fechamentoAnterior, setFechamentoAnterior] = useState({});
@@ -34,8 +43,6 @@ function Home(props: any){
         buscarStatusCaixa();
 
     }, [])
-
-    const {data: session} = useSession();
 
     return (
         <>
@@ -60,7 +67,7 @@ function Home(props: any){
 
                 <div className={styles.caixa1}>
                     <div className={styles.textoCaixa1Topo}>
-                        <h2>Olá. {/*session.user.name.nome*/}Falta fazer! </h2>
+                        <h2>Olá. {nomeuser}! </h2>
                         <p>
                             Você sabia que pode gerenciar sua empresa com um sistema?<br/>
                             A tecnologia veio para agilizar o nosso trabalho.
