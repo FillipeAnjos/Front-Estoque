@@ -74,3 +74,9 @@ npx typeorm migration:create -n Create<nome da migration>
 
 //Comando para rodar as migrations
 npm run typeorm migration:run
+
+### VARIAVEIS DE AMBIENTE - FRONT-END
+
+NEXT_PUBLIC_CHAVE_API_OpenWeatherMap=<Sua chave>
+
+NEXT_PUBLIC_CHAVE_SENHA_ADM=<Sua chave>
