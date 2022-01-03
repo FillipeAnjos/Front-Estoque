@@ -33,7 +33,7 @@ export function Sidebar() {
                   <Link href="/">Home</Link>
                 </MenuItem>
                 <MenuItem icon={<FcPaid />}>
-                  <Link href="/Venda">Realizar Venda</Link>
+                  <Link href="/venda">Realizar Venda</Link>
                 </MenuItem>
                 <SubMenu title="Produtos" icon={<FcBriefcase />}>
 

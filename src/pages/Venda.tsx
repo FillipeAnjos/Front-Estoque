@@ -1,6 +1,7 @@
 import Head from "next/head";
-import styles from "../components/Venda/styles.module.scss";
+import styles from "../components/venda/styles.module.scss";
 import { api } from "../services/api";
+import VendaOff from "./vendaOff";
 import { AiFillCaretDown } from 'react-icons/ai';
 import { FaTrashAlt } from "react-icons/fa";
 
@@ -48,12 +49,13 @@ function Venda(){
         const [alertamsg, setAlertamsg] = useState('');
     // -------------------------------------------------------
 
-    var nomeUsuario = null;
+    var idUsuario = null;
     if(session){
-        nomeUsuario = session.user.name;
+        idUsuario = session.user.email;
     }
-
-    const [nomeuser, setNomeuser] = useState(nomeUsuario);
+    
+    const [usuariosadmin, setUsuariosadmin] = useState([]);
+    const [caixa, setCaixa] = useState(true);
 
     const [produtos, setProdutos] = useState([]);
     const [addprodutos, setAddprodutos] = useState([]);
@@ -66,12 +68,14 @@ function Venda(){
 
     const [accordian, setAccordian] = useState(true);
 
-    const [subtotal, setSubtotal]           = useState(0);
-    const [desconto, setDesconto]           = useState(0);
-    const [valortotal, setValortotal]       = useState(0);
-    const [valorrecebito, setValorrecebido] = useState(0);
-    const [valorrestante, setValorrestante] = useState(0);
-    const [troco, setTroco] = useState(0);
+    const [subtotal, setSubtotal]           = useState('');
+    const [desconto, setDesconto]           = useState('');
+    const [valortotal, setValortotal]       = useState('');
+    const [valorrecebito, setValorrecebido] = useState('');
+    const [valorrestante, setValorrestante] = useState('');
+    const [troco, setTroco] = useState('');
+
+    const [rebidodisabled, setRebidodisabled] = useState(true);
 
     const [selecionarradio, setSelecionarradio] = useState('a');
     const trocarRadio = (event: any) => {
@@ -84,7 +88,10 @@ function Venda(){
         credito: false,
         debito: false,
         loja: false,
-      });
+    });
+
+    const [vendedor, setVendedor] = useState(parseInt(idUsuario));
+    const [obs, setObs] = useState('');
 
     const trocarPagamento = name => event => {
 
@@ -109,11 +116,14 @@ function Venda(){
     };
 
     useEffect(() => {
+        buscarStatusCaixa();
+        buscarUsuarios();
         buscarProdutos();
     }, [])
 
+    
 
-    return (
+    return caixa == true ? (
         <>
             <Head>
                 <title>Venda</title>
@@ -254,12 +264,14 @@ function Venda(){
                                     <h2>Debito: {checkbox.debito == true ? '1' : '0'}</h2>
                                     <h2>Loja: {checkbox.loja == true ? '1' : '0'}</h2>*/}
                                     <h3>Vendedor</h3>
-                                    <select>
-                                        <option selected>{nomeuser}</option>
+                                    <select value={vendedor} onChange={ (event) => setVendedor(parseInt(event.target.value)) }>
+                                        {usuariosadmin.map(item => (
+                                            <option value={item.id} selected={item.id == idUsuario}>{item.nome}</option>
+                                        ))}
                                     </select>
                                     <br/><br/>
                                     <h4>Observação</h4>
-                                    <textarea rows={5}>
+                                    <textarea rows={5} value={obs} onChange={ (event) => setObs(event.target.value) }>
 
                                     </textarea>
                             </div>
@@ -308,6 +320,11 @@ function Venda(){
 
                         </div>
 
+                        <br/>
+                        <div className={styles.calcularValor}>
+                            <button title="Deseja calcular os valores?" onClick={ () => calcularValor() }>Calcular</button>
+                        </div>
+
                     </Typography>
                     </AccordionDetails>
                 </Accordion>
@@ -317,15 +334,15 @@ function Venda(){
                 <div className={styles.valores1}>
                     <label>
                         Sub Total<br/>
-                        <input type="number" maxLength={10} value={subtotal} onChange={ (event) => setSubtotal(parseInt(event.target.value)) } disabled/>
+                        <input type="text" maxLength={10} value={subtotal} onChange={ (event) => setSubtotal(event.target.value) } disabled/>
                     </label>
                     <label>
                         Desconto<br/>
-                        <input type="number" maxLength={10} value={desconto} onChange={ (event) => setDesconto(parseInt(event.target.value)) } />
+                        <input type="text" maxLength={10} value={desconto} onChange={ (event) => setDesconto(event.target.value) } onBlur={ () => calcularDesconto() }/>
                     </label>
                     <label>
                         Valor Total<br/>
-                        <input type="number" maxLength={10} value={valortotal} onChange={ (event) => setValortotal(parseInt(event.target.value)) } disabled/>
+                        <input type="text" maxLength={10} value={valortotal} onChange={ (event) => setValortotal(event.target.value) } disabled/>
                     </label>
                 </div>
 
@@ -334,25 +351,112 @@ function Venda(){
                 <div className={styles.valores2}>
                     <label>
                         Valor Recebido<br/>
-                        <input type="number" maxLength={10} value={valorrecebito} onChange={ (event) => setValorrecebido(parseInt(event.target.value)) } disabled/>
+                        <input type="text" maxLength={10} value={valorrecebito} onChange={ (event) => setValorrecebido(event.target.value) } onBlur={ () => calcularTroco() } disabled={rebidodisabled}/>
                     </label>
                     <label>
                         Valor Restante<br/>
-                        <input type="number" maxLength={10} value={valorrestante} onChange={ (event) => setValorrestante(parseInt(event.target.value)) } disabled/>
+                        <input type="text" maxLength={10} value={valorrestante} onChange={ (event) => setValorrestante(event.target.value) } disabled/>
                     </label>
                     <label>
                         Troco<br/>
-                        <input type="number" maxLength={10} value={troco} onChange={ (event) => setTroco(parseInt(event.target.value)) } disabled/>
+                        <input type="text" maxLength={10} value={troco} onChange={ (event) => setTroco(event.target.value) } disabled/>
                     </label>
                 </div>
 
                 <div className={styles.realizarVenda}>
-                    <button title="Deseja realizar essa venda?">Realizar Venda</button>
+                    <button title="Deseja realizar essa venda?" onClick={ () => realizarVenda() }>Realizar Venda</button>
                 </div>
                 
             </div>
         </>
     )
+    :
+    (
+        <VendaOff />
+    )
+
+    function realizarVenda(){
+
+        var valoresDados = {
+            subtotal,
+            desconto,
+            valortotal,
+            valorrecebito,
+            valorrestante,
+            troco
+        }
+
+        var dados = {
+            id_user: vendedor,
+            itens: addprodutos,
+            modalidade: checkbox,
+            valores: valoresDados,
+            obs: obs
+        }
+
+        api({
+            method: 'POST',
+            url: '/realizarVenda',
+            data: {
+                param: dados
+            }
+        }).then((res) => {
+            
+            if(res.data.venda.error){
+                alert(res.data.venda.msg);
+                return false;
+            }
+            
+        })
+
+    }
+
+    function calcularValor(){
+
+        if(checkbox.dinheiro == false && checkbox.pix == false && checkbox.credito == false && checkbox.debito == false && checkbox.loja == false){
+            alert("Escolha uma forma de pagamento!");
+            return false
+        }
+
+        var valorSomado = 0;
+
+        addprodutos.forEach((element, index) => {
+            var conta = element.valor * element.unidade;
+            index != 0 ? valorSomado += conta : valorSomado = conta;
+        });
+        
+        setSubtotal(valorSomado.toFixed(2));
+        setValortotal(valorSomado.toFixed(2));
+        setValorrestante(valorSomado.toFixed(2));
+
+        if(checkbox.pix == true || checkbox.credito == true || checkbox.debito == true){
+            setRebidodisabled(true)
+        }else{
+            setRebidodisabled(false)
+        }
+
+    }
+
+    function calcularDesconto(){
+
+        const novoValorTotal = parseFloat(subtotal) - parseFloat(desconto);
+
+        setValortotal(novoValorTotal.toFixed(2));
+        setValorrestante(novoValorTotal.toFixed(2));
+
+    }
+
+    function calcularTroco(){
+
+        if(parseInt(valorrecebito) <= parseInt(valorrestante)){
+            return false;
+        } 
+
+        var novoValorTroco = parseFloat(valorrecebito) - parseFloat(valorrestante);
+
+        setTroco(novoValorTroco.toFixed(2));
+
+    }
     
     function buscarProdutos(){
         api({
@@ -456,6 +560,26 @@ function Venda(){
         setAlertatipo(tipo);
         setAlertamsg(mensagem);
         estadoAlerta();
+    }
+
+    function buscarUsuarios(){
+        api({
+            method: 'GET',
+            url: '/buscarUsers'
+        }).then((res) => {
+            setUsuariosadmin(res.data.usuarios);
+        })
+    }
+
+    function buscarStatusCaixa(){
+        api({
+            method: 'GET',
+            url: '/buscarStatusCaixa'
+        }).then((res) => {
+            var cs = res.data.fechamento.caixa;
+
+            cs == 2 ? setCaixa(true) : setCaixa(false);
+        })
     }
 
 }
