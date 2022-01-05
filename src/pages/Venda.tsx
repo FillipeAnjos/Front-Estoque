@@ -3,10 +3,13 @@ import styles from "../components/venda/styles.module.scss";
 import { api } from "../services/api";
 import VendaOff from "./vendaOff";
 import { AiFillCaretDown } from 'react-icons/ai';
+import { IoMdHelpCircleOutline } from 'react-icons/io';
 import { FaTrashAlt } from "react-icons/fa";
 
 import verificarAutenticidade from "../utils/verificarAutenticidade";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -21,7 +24,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ActionAlerts from "../components/Alert";
-import { useSession } from "next-auth/react";
+import Popover from '@mui/material/Popover';
 
 interface IProdutoSelecionado{
     categoria: string;
@@ -42,6 +45,8 @@ interface IProdutoSelecionado{
 function Venda(){
 
     const {data: session} = useSession();
+
+    const router = useRouter();
 
     // ------------------------ Alerta -----------------------
         const [alerta, setAlerta] = useState(false);
@@ -67,6 +72,21 @@ function Venda(){
     const [unidade, setUnidade] = useState(0);
 
     const [accordian, setAccordian] = useState(true);
+
+    // ------------------------ Ajuda -----------------------
+        const [ajuda, setAjuda] = useState(null);
+
+        const ajudaOpen = (event: any) => {
+            setAjuda(event.currentTarget);
+        };
+
+        const ajudaClose = () => {
+            setAjuda(null);
+        };
+
+        const open = Boolean(ajuda);
+        const idAjuda = open ? 'simple-popover' : undefined;
+    // -------------------------------------------------------
 
     const [subtotal, setSubtotal]           = useState('');
     const [desconto, setDesconto]           = useState('');
@@ -121,15 +141,39 @@ function Venda(){
         buscarProdutos();
     }, [])
 
-    
-
     return caixa == true ? (
         <>
             <Head>
                 <title>Venda</title>
             </Head>
             <div className={styles.container}>
-                <h2>Venda</h2>
+                <div className={styles.containerDescricaoIcon}>
+
+                    <h2>Venda</h2>
+                    
+                    <h2 title="Click-Me" onClick={ajudaOpen}><IoMdHelpCircleOutline /></h2>
+                        <Popover
+                            id={idAjuda}
+                            open={open}
+                            anchorEl={ajuda}
+                            onClose={ajudaClose}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                        >
+                            <Typography sx={{ p: 2 }}>
+                                Importante.<br/><br/>
+                                Ao adicionar os produtos certifique de calcular os valores,<br/>
+                                apertando o botão "Calcular".<br/>
+                                Se caso você depois de calcular os valores tiver que adicionar<br/>
+                                mais um produto terá que apertar novamente no botão calcular,<br/>
+                                para também calcular os valores de novo, caso contrario os<br/>
+                                valores não irá corresponder aos produtos selecionados.<br/>
+                            </Typography>
+                        </Popover>
+
+                </div>
                 <hr />
 
                 {alerta == true 
@@ -258,11 +302,6 @@ function Venda(){
                             </div>
 
                             <div className={styles.cubo2}>
-                                    {/*<h2>Dinheiro: {checkbox.dinheiro == true ? '1' : '0'}</h2>
-                                    <h2>Pix: {checkbox.pix == true ? '1' : '0'}</h2>
-                                    <h2>Credito: {checkbox.credito == true ? '1' : '0'}</h2>
-                                    <h2>Debito: {checkbox.debito == true ? '1' : '0'}</h2>
-                                    <h2>Loja: {checkbox.loja == true ? '1' : '0'}</h2>*/}
                                     <h3>Vendedor</h3>
                                     <select value={vendedor} onChange={ (event) => setVendedor(parseInt(event.target.value)) }>
                                         {usuariosadmin.map(item => (
@@ -406,6 +445,9 @@ function Venda(){
                 alert(res.data.venda.msg);
                 return false;
             }
+            
+            alert(res.data.venda.msg);
+            router.push("/");
             
         })
 
