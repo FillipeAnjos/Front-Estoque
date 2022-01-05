@@ -3,6 +3,12 @@
     margin-top: 2rem;
     width: 70rem;
 
+    .containerDescricaoIcon {
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
     .radios {
         display: flex;
         justify-content: space-between;
