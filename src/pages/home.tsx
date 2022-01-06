@@ -17,10 +17,13 @@ import Temperatura from "../components/Temperatura";
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import ActionAlerts from "../components/Alert";
+import { useRouter } from "next/router";
 
 function Home(props: any){
 
     const {data: session} = useSession();
+
+    const router = useRouter();
 
     // ------------------------ Alerta -----------------------
         const [alerta, setAlerta] = useState(false);
@@ -37,10 +40,12 @@ function Home(props: any){
 
     const [caixa, setCaixa] = useState(0);
     const [fechamentoAnterior, setFechamentoAnterior] = useState({});
+    const [valorfechamentodia, setValorfechamentodia] = useState(0);
 
     useEffect( () => {
         
         buscarStatusCaixa();
+        buscarVendasDia();
 
     }, [])
 
@@ -227,7 +232,9 @@ function Home(props: any){
         })
     }
 
-    function salvarFechamento(param: boolean){
+    async function salvarFechamento(param: boolean){
+
+        buscarVendasDia();
 
         let dados = null;
 
@@ -249,7 +256,7 @@ function Home(props: any){
             }
 
             dados = {
-                valor_total: 10000, // FALTA POR O VALOR CORRETO DO DIA DE TRABALHOOOOOOOOOOOOOOOOOOOOOOO
+                valor_total: valorfechamentodia, // FALTA POR O VALOR CORRETO DO DIA DE TRABALHOOOOOOOOOOOOOOOOOOOOOOO
                 data: moment(new Date()).format("YYYY-MM-DD"),
                 status: false
             };
@@ -270,10 +277,12 @@ function Home(props: any){
 
     function salvarFechamentoAnterior(anterior: any){
 
+        buscarVendasDia();
+
         const { data } = anterior.fechamento;
 
         var dados = {
-            valor_total: 10000, // FALTA POR O VALOR CORRETO DO DIA DE TRABALHOOOOOOOOOOOOOOOOOOOOOOO
+            valor_total: valorfechamentodia, // FALTA POR O VALOR CORRETO DO DIA DE TRABALHOOOOOOOOOOOOOOOOOOOOOOO
             data: data,
             status: false
         };
@@ -305,6 +314,20 @@ function Home(props: any){
             
         })
 
+    }
+
+    function buscarVendasDia(){
+
+        api({
+            method: 'GET',
+            url: '/buscarVendasDia'
+        }).then( res => {
+            if(res.data.fechamento.error){
+                alert(res.data.fechamento.msg);
+            }
+
+            setValorfechamentodia(res.data.fechamento.valor_total);
+        })
     }
 
     function fechamento(condition: number){
@@ -406,10 +429,10 @@ function Home(props: any){
                 console.log('Clientes');
                 break;
             case 3:
-                console.log('Produtos');
+                router.push("/produto");
                 break;
             case 4:
-                console.log('Vendas');
+                router.push("/vendas");
                 break;
             default:
                 break;

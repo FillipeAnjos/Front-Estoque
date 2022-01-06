@@ -1,13 +1,10 @@
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { FiHome, FiHeart } from 'react-icons/fi';
-import { FcBriefcase , FcHome, FcPaid } from "react-icons/fc";
+import { FcBriefcase , FcHome, FcPaid, FcShipped } from "react-icons/fc";
 import Link from 'next/link';
-
 import styles from '../Sidebar/styles.module.scss';
 import { signOut, useSession } from 'next-auth/react';
-
 import { AiOutlineLogout } from 'react-icons/ai';
-
 import { useRouter } from "next/router";
 
 export function Sidebar() {
@@ -33,13 +30,19 @@ export function Sidebar() {
                   <Link href="/">Home</Link>
                 </MenuItem>
                 <MenuItem icon={<FcPaid />}>
-                  <Link href="/venda">Realizar Venda</Link>
+                  <Link href="/Venda">Realizar Venda</Link>
                 </MenuItem>
                 <SubMenu title="Produtos" icon={<FcBriefcase />}>
 
-                  <SubMenu title="Inserir">
+                  <SubMenu title="Produto">
                     <MenuItem >
                       <Link href="/produto">Listar / Novo</Link>
+                    </MenuItem>
+                  </SubMenu>
+
+                  <SubMenu title="Cadastrar">
+                    <MenuItem >
+                      <Link href="/categoria">Categoria</Link>
                     </MenuItem>
                   </SubMenu>
 
@@ -48,6 +51,16 @@ export function Sidebar() {
                       <Link href="/produtoQtd">Balanço</Link>
                     </MenuItem>
                   </SubMenu>
+                  
+                </SubMenu>
+
+                <SubMenu title="Vendas" icon={<FcShipped />}>
+
+                  <SubMenu title="Listar / Vendas">
+                    <MenuItem >
+                      <Link href="/vendas">Vendas</Link>
+                    </MenuItem>
+                  </SubMenu>                  
                   
                 </SubMenu>
               </> 

@@ -16,6 +16,8 @@ function ProdutoNovo(){
     const [valor, setValor] = useState('0');
     const [obs, setObs] = useState('');
     const [status, setStatus] = useState(true);
+    
+    const [categorias, setCategorias] = useState([]);
 
     // ---------------------- Alerta ----------------------
         const [alerta, setAlerta] = useState(false);
@@ -24,6 +26,8 @@ function ProdutoNovo(){
     // -------------------------------------------------------
     
     useEffect( () => {
+
+        buscarCategorias();
 
         api({
             method: 'POST',
@@ -92,6 +96,15 @@ function ProdutoNovo(){
         alerta == true ? setAlerta(false) : setAlerta(true);
     }
 
+    function buscarCategorias(){
+        api({
+            method: 'GET',
+            url: '/buscarCategorias'
+        }).then(res => {
+            setCategorias(res.data.categorias);
+        })
+    }
+
     return (
         <>
             <Head>
@@ -131,12 +144,9 @@ function ProdutoNovo(){
                             Categoria
                             <select className={styles.categoria} value={categoria} onChange={ (event) => setCategoria(event.target.value) }>
                                 <option value="0">Selecione</option>
-                                <option value="Blusa">Blusa</option>
-                                <option value="Calca">Calça</option>
-                                <option value="Peca unica">Peça única</option>
-                                <option value="Conjunto">Conjunto</option>
-                                <option value="Assessorios">Assessórios</option>
-                                <option value="Calcados">Calçados</option>
+                                {categorias.map((item, index) => (
+                                    <option value={item.descricao} key={index}>{item.descricao}</option>
+                                ))}
                             </select>
                         </label>
                         <label>
@@ -173,30 +183,6 @@ function ProdutoNovo(){
                     <div className={styles.containerButton}>
                         <button>Cadastrar Produto</button>
                     </div>
-                    
-
-                    
-
-
-                    {/* 
-                        categoria
-                            > Blusa
-                            calsa
-                            Peça única
-                            Conjunto
-                            Assessórios
-                            Calçados
-
-                        Blusa
-                            > Descrição
-                                > Cor
-                                    > Tamanho
-                                        > Obs
-                                    
-                        Status
-                            > Ativo ou Inativo
-                    
-                    */}
 
                 </div>
             </form>

@@ -6,8 +6,9 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
+import verificarAutenticidade from "../utils/verificarAutenticidade";
 
-export default function Ajuda(){
+function Ajuda(){
 
     return (
         <>
@@ -57,3 +58,5 @@ export default function Ajuda(){
         </>
     )
 }
+
+export default verificarAutenticidade(Ajuda);
