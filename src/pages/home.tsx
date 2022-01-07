@@ -42,10 +42,13 @@ function Home(props: any){
     const [fechamentoAnterior, setFechamentoAnterior] = useState({});
     const [valorfechamentodia, setValorfechamentodia] = useState(0);
 
+    const [usuarios, setUsuarios] = useState([]);
+
     useEffect( () => {
         
         buscarStatusCaixa();
         buscarVendasDia();
+        buscarUsers();
 
     }, [])
 
@@ -143,61 +146,20 @@ function Home(props: any){
                 </div>
                 
                 <div className={styles.caixa4}>
-                    {/*
-                    <div className={styles.modelo1}>
-                        <div>
-                            Abrir Caixa 
-                        </div>
-                        
-                    </div>
-
-                    <div className={styles.modelo2}>
-                        <div>
-                            Fechar Caixa
-                        </div>
-
-                    </div>
-                    */}
-
-                    {/* #00af00   #df0000 */}
-
                     { fechamento(caixa) }                    
-
                 </div>
 
                 <h4 className={styles.textoMembros}>Membros</h4>
                 <div className={styles.caixa5}>
                     
                     <div className={styles.usersSistem}>
-                        <div>
-                            <h3><FaUserCircle /></h3>
-                            <p>Fillipe</p>
-                            <h5>dos Anjos</h5>
-                        </div>
-
-                        <div>
-                            <h3><FaUserCircle /></h3>
-                            <p>Fabiana</p>
-                            <h5>Leal</h5>
-                        </div>
-
-                        <div>
-                            <h3><FaUserCircle /></h3>
-                            <p>Fiorella</p>
-                            <h5>Leal</h5>
-                        </div>
-
-                        <div>
-                            <h3><FaUserCircle /></h3>
-                            <p>Ruth</p>
-                            <h5>dos Anjos</h5>
-                        </div>
-
-                        <div>
-                            <h3><FaUserCircle /></h3>
-                            <p>Alfredo</p>
-                            <h5>Pereira</h5>
-                        </div>
+                        {usuarios.map((item, index) => (
+                            <div key={index}>
+                                <h3><FaUserCircle /></h3>
+                                <p>{item.nome}</p>
+                                <h5>{item.sobre}</h5>
+                            </div>
+                        ))}
 
                     </div>
 
@@ -256,7 +218,7 @@ function Home(props: any){
             }
 
             dados = {
-                valor_total: valorfechamentodia, // FALTA POR O VALOR CORRETO DO DIA DE TRABALHOOOOOOOOOOOOOOOOOOOOOOO
+                valor_total: valorfechamentodia != undefined ? valorfechamentodia : 0, // FALTA POR O VALOR CORRETO DO DIA DE TRABALHOOOOOOOOOOOOOOOOOOOOOOO
                 data: moment(new Date()).format("YYYY-MM-DD"),
                 status: false
             };
@@ -282,7 +244,7 @@ function Home(props: any){
         const { data } = anterior.fechamento;
 
         var dados = {
-            valor_total: valorfechamentodia, // FALTA POR O VALOR CORRETO DO DIA DE TRABALHOOOOOOOOOOOOOOOOOOOOOOO
+            valor_total: valorfechamentodia != undefined ? valorfechamentodia : 0, // FALTA POR O VALOR CORRETO DO DIA DE TRABALHOOOOOOOOOOOOOOOOOOOOOOO
             data: data,
             status: false
         };
@@ -438,6 +400,15 @@ function Home(props: any){
                 break;
         }
         
+    }
+
+    function buscarUsers(){
+        api({
+            method: 'GET',
+            url: '/buscarUltimosUsers'
+        }).then( res => {
+            setUsuarios(res.data.usuarios);
+        })
     }
 
 }
