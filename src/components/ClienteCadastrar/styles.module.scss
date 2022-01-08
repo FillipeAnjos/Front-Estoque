@@ -1,0 +1,147 @@
+.container {
+    display: grid;
+    margin-top: 2rem;
+    width: 70rem;
+
+    img {
+        width: 13rem;
+        border: ridge 5px;
+    }
+
+    input {
+        height: 2rem;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+
+    select {
+        height: 2rem;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+
+    .bloco1 {
+        display: flex;
+
+        div {
+            margin-left: 1rem;
+            width: 26rem;
+            //background: blueviolet;
+
+            label{
+                //margin-top: 0.6rem;
+                span{
+                    div{
+                        color: red;
+                        margin-left: -0px;
+                    }
+                }
+            }
+
+            span {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 0.6rem;
+
+                label {
+                    div {
+                        color: red;
+                        margin-left: -0px;
+                    }
+                }
+
+                select {
+                    width: 13rem;
+                }
+            }
+        }
+
+        .civilUf {
+            display: grid;
+            justify-content: space-between;
+            //margin-left: 2rem;
+            width: 30rem;
+
+            div {
+                display: flex;
+
+                input {
+                    width: 12rem;
+                }
+    
+                label {
+                    width: 14rem;
+                    span {
+                        
+                    }
+                }
+            }
+
+            .rg {
+                margin-left: 1rem;
+                margin-top: -4.3rem;
+            }
+
+        }
+    }
+
+    .bloco2 {
+        width: 40rem;
+
+        div {
+           display: flex;
+           justify-content: space-between;
+           margin-top: 1rem;
+
+            .endereco {
+                width: 24rem;
+            }
+
+            .numero {
+                width: 14rem;
+            }
+
+            .tel{
+                width: 11rem;
+            }
+
+            .cel {
+                width: 11rem;
+
+                span {
+                    span{
+                        color:red
+                    }
+                }
+            }
+
+            .email {
+                width: 14rem;
+
+                span {
+                    span{
+                        color:red
+                    }
+                }
+            }
+        }
+
+    }
+
+    .containerButton {
+        display: flex;
+        margin-top: 1rem;
+        width: 24rem;
+        justify-content: space-between;
+        
+
+        button {
+            background: #000;
+            color: var(--white);
+            text-align: center;
+            margin-top: 1.0rem;
+        }
+    }
+
+
+}
