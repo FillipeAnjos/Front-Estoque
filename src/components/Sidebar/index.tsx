@@ -1,6 +1,5 @@
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import { FiHome, FiHeart } from 'react-icons/fi';
-import { FcBriefcase , FcHome, FcPaid, FcShipped } from "react-icons/fc";
+import { FcBriefcase , FcHome, FcPaid, FcShipped, FcLike, FcManager } from "react-icons/fc";
 import Link from 'next/link';
 import styles from '../Sidebar/styles.module.scss';
 import { signOut, useSession } from 'next-auth/react';
@@ -63,6 +62,26 @@ export function Sidebar() {
                   </SubMenu>                  
                   
                 </SubMenu>
+
+                <SubMenu title="Clientes" icon={<FcLike />}>
+
+                  <SubMenu title="Cliente">
+                    <MenuItem >
+                      <Link href="/clienteCadastrar">Cadastrar</Link>
+                    </MenuItem>
+                  </SubMenu>                  
+                  
+                </SubMenu>
+
+                {/*<SubMenu title="Fornecedores" icon={<FcManager />}>
+
+                  <SubMenu title="Fornecedor">
+                    <MenuItem >
+                      <Link href="/fornecedor">Listar / Fornecedores</Link>
+                    </MenuItem>
+                  </SubMenu>                  
+                  
+                </SubMenu>*/}
               </> 
             : 
               <SubMenu title="Logar" icon={<FcHome />}>

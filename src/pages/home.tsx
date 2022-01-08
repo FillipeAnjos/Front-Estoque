@@ -218,7 +218,7 @@ function Home(props: any){
             }
 
             dados = {
-                valor_total: valorfechamentodia != undefined ? valorfechamentodia : 0, // FALTA POR O VALOR CORRETO DO DIA DE TRABALHOOOOOOOOOOOOOOOOOOOOOOO
+                valor_total: valorfechamentodia != undefined ? valorfechamentodia : 0, 
                 data: moment(new Date()).format("YYYY-MM-DD"),
                 status: false
             };
@@ -244,7 +244,7 @@ function Home(props: any){
         const { data } = anterior.fechamento;
 
         var dados = {
-            valor_total: valorfechamentodia != undefined ? valorfechamentodia : 0, // FALTA POR O VALOR CORRETO DO DIA DE TRABALHOOOOOOOOOOOOOOOOOOOOOOO
+            valor_total: valorfechamentodia != undefined ? valorfechamentodia : 0, 
             data: data,
             status: false
         };
@@ -385,10 +385,10 @@ function Home(props: any){
         
         switch (condition) {
             case 1:
-                console.log('Fornecedores');
+                router.push("/fornecedor");
                 break;
             case 2:
-                console.log('Clientes');
+                router.push("/cliente");
                 break;
             case 3:
                 router.push("/produto");
