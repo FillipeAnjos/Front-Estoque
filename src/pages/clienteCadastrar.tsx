@@ -106,7 +106,7 @@ function ClienteCadastrar(){
                     <div>
 
                         <label className={styles.endereco}>
-                            <span>Endereço</span>
+                            <span>Endereço<span>*</span></span>
                             <input type="text" maxLength={150} value={endereco} onChange={ (event) => setEndereco(event.target.value) }/>
                         </label>
 
@@ -153,6 +153,10 @@ function ClienteCadastrar(){
 
         if(nome == ''){
             chamarAlert("error", "O nome do cliente tem que ser preenchido.");
+            return false;
+        }
+        if(endereco == ''){
+            chamarAlert("error", "O endereco do cliente tem que ser preenchido.");
             return false;
         }
         if(cel == ''){

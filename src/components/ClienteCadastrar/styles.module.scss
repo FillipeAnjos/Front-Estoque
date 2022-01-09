@@ -71,9 +71,6 @@
     
                 label {
                     width: 14rem;
-                    span {
-                        
-                    }
                 }
             }
 
@@ -95,6 +92,12 @@
 
             .endereco {
                 width: 24rem;
+
+                span {
+                    span{
+                        color:red
+                    }
+                }
             }
 
             .numero {
