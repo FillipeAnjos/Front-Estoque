@@ -69,19 +69,22 @@ export function Sidebar() {
                     <MenuItem >
                       <Link href="/clienteCadastrar">Cadastrar</Link>
                     </MenuItem>
+                    <MenuItem >
+                      <Link href="/clienteListar">Listar</Link>
+                    </MenuItem>
                   </SubMenu>                  
                   
                 </SubMenu>
 
-                {/*<SubMenu title="Fornecedores" icon={<FcManager />}>
+                <SubMenu title="Fornecedores" icon={<FcManager />}>
 
                   <SubMenu title="Fornecedor">
                     <MenuItem >
-                      <Link href="/fornecedor">Listar / Fornecedores</Link>
+                      <Link href="/fornecedorCadastrar">Cadastrar</Link>
                     </MenuItem>
                   </SubMenu>                  
                   
-                </SubMenu>*/}
+                </SubMenu>
               </> 
             : 
               <SubMenu title="Logar" icon={<FcHome />}>
