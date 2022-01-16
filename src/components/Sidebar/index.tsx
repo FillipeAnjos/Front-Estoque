@@ -82,6 +82,9 @@ export function Sidebar() {
                     <MenuItem >
                       <Link href="/fornecedorCadastrar">Cadastrar</Link>
                     </MenuItem>
+                    <MenuItem >
+                      <Link href="/fornecedorListar">Listar</Link>
+                    </MenuItem>
                   </SubMenu>                  
                   
                 </SubMenu>
