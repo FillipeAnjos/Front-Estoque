@@ -5,7 +5,7 @@ import styles from "../components/FornecedorCadastrar/styles.module.scss";
 import { api } from "../services/api";
 import verificarAutenticidade from "../utils/verificarAutenticidade";
 
-export default function FornecedorCadastrar(){
+function FornecedorCadastrar(){
 
     const [nome, setNome]             = useState('');
     const [cnpj, setCnpj]             = useState('');
@@ -189,4 +189,4 @@ export default function FornecedorCadastrar(){
     
 }
 
-//export default verificarAutenticidade(FornecedorCadastrar);
+export default verificarAutenticidade(FornecedorCadastrar);

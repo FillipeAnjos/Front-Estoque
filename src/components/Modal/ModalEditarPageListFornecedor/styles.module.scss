@@ -1,0 +1,50 @@
+.estilo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50rem;
+    background: var(--white);
+    box-shadow: 1px 1px 5px var(--white);
+    border: 1px solid #000;
+
+    padding: 1rem;
+
+    .campos {
+        display: flex;
+        justify-content: space-between;
+
+        label {
+            display: grid;
+        }
+
+        input {
+            width: 15rem;
+            height: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        select {
+            width: 15rem;
+            height: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        textarea {
+            margin-top: 0.5rem;
+            width: 48rem;
+        }
+        
+        button {
+            width: 50rem;
+            background: #000;
+            color: var(--white);
+            text-align: center;
+            margin-top: 1.0rem;
+        }
+    }
+}
+
+.iconEditar {
+    cursor: pointer;
+}

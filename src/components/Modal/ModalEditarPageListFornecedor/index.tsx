@@ -3,48 +3,41 @@ import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import styles from "../ModalEditarPageListCliente/styles.module.scss";
+import styles from "../ModalEditarPageListFornecedor/styles.module.scss";
 import { FaPencilAlt } from "react-icons/fa";
 import { api } from '../../../services/api';
 import { useRouter } from 'next/router';
 
-export function ModalEditarPageListCliente(props: any){
+export function ModalEditarPageListFornecedor(props: any){
 
-    //console.log(props.clienteSelecionado);
+    //console.log(props.fornecedorSelecionado);
 
     const [open, setOpen] = useState(false);
     
     const [codigo, setCodigo] = useState(0);
     const [nome, setNome] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [nascimento, setNascimento] = useState('');
-    const [genero, setGenero] = useState('');
-    const [civil, setCivil] = useState('');
-    const [uf, setUf] = useState('');
-    const [rg, setRg] = useState('');
+    const [email, setEmail] = useState('');
+    const [cnpj, setCnpj] = useState('');
+    const [razao, setRazao] = useState('');
+    const [falarcom, setFalarcom] = useState('');
     const [endereco, setEndereco] = useState('');
     const [numero, setNumero] = useState(0);
-    const [tel, setTel] = useState('');
     const [cel, setCel] = useState('');
-    const [email, setEmail] = useState('');
 
     const router = useRouter();
 
     function abrirModal() {
         setOpen(true);
-        setCodigo(props.clienteSelecionado.id);
-        setNome(props.clienteSelecionado.nome);
-        setCpf(props.clienteSelecionado.cpf);
-        setNascimento(props.clienteSelecionado.nascimento);
-        setGenero(props.clienteSelecionado.genero);
-        setCivil(props.clienteSelecionado.civil);
-        setUf(props.clienteSelecionado.uf);
-        setRg(props.clienteSelecionado.rg);
-        setEndereco(props.clienteSelecionado.rua);
-        setNumero(props.clienteSelecionado.numero);
-        setTel(props.clienteSelecionado.telefone);
-        setCel(props.clienteSelecionado.celular);
-        setEmail(props.clienteSelecionado.email);
+        setCodigo(props.fornecedorSelecionado.id);
+        setNome(props.fornecedorSelecionado.nome);
+        setEmail(props.fornecedorSelecionado.email);
+        setCnpj(props.fornecedorSelecionado.cnpj);
+        setRazao(props.fornecedorSelecionado.razao);
+        setFalarcom(props.fornecedorSelecionado.falarcom);
+        setEndereco(props.fornecedorSelecionado.rua);
+        setNumero(props.fornecedorSelecionado.numero);
+        setCel(props.fornecedorSelecionado.celular);
+
     }
 
     const fecharModal = () => setOpen(false);
@@ -55,35 +48,31 @@ export function ModalEditarPageListCliente(props: any){
         var dados = {
             id: codigo,
             nome: nome,
-            cpf: cpf,
-            nascimento: nascimento,
-            genero: genero,
-            civil: civil,
-            uf: uf,
-            rg: rg,
+            cnpj: cnpj,
+            razao: razao,
+            falarcom: falarcom,
             endereco: endereco,
             numero: numero,
-            tel: tel,
             cel: cel,
             email: email
         }
 
         api({
             method: 'POST',
-            url: '/editarCliente',
+            url: '/editarFornecedor',
             data: {
                 param: dados
             }
         }).then(res => {
             
-            if(res.data.cliente.error){
-                alert(res.data.cliente.msg);
+            if(res.data.fornecedor.error){
+                alert(res.data.fornecedor.msg);
                 return false;
             }
 
             fecharModal();
     
-            alert(res.data.cliente.msg);
+            alert(res.data.fornecedor.msg);
             
             router.push('/');
             
@@ -111,7 +100,7 @@ export function ModalEditarPageListCliente(props: any){
                     <Box className={styles.estilo}>
                         <form onSubmit={Editar}>
 
-                            <h2>Editar Cliente</h2>
+                            <h2>Editar Fornecedor</h2>
                             
                             <br/>
                             
@@ -125,8 +114,8 @@ export function ModalEditarPageListCliente(props: any){
                                     <input type="text" maxLength={150} value={nome} onChange={ (event) => setNome(event.target.value) } />
                                 </label>
                                 <label>
-                                    Data Nascimento
-                                    <input type="date" maxLength={30} value={nascimento} onChange={ (event) => setNascimento(event.target.value) } />
+                                    Razao
+                                    <input type="text" maxLength={30} value={razao} onChange={ (event) => setRazao(event.target.value) } />
                                 </label>
                             </div>
 
@@ -134,37 +123,16 @@ export function ModalEditarPageListCliente(props: any){
 
                             <div className={styles.campos}>
                                 <label>
-                                    CPF
-                                    <input type="text" maxLength={20} value={cpf} onChange={ (event) => setCpf(event.target.value) } />
+                                    CNPJ
+                                    <input type="text" maxLength={20} value={cnpj} onChange={ (event) => setCnpj(event.target.value) } />
                                 </label>
-                                <label>
-                                    RG
-                                    <input type="text" maxLength={30} value={rg} onChange={ (event) => setRg(event.target.value) } />
-                                </label>
-                                <label>
-                                    Genero
-                                    <select value={genero} onChange={ (event) => setGenero(event.target.value) }>
-                                        <option value="m">Masculino</option>
-                                        <option value="f">Feminino</option>
-                                        <option value="o">Outros</option>
-                                    </select>
-                                </label>
-                            </div>
-
-                            <br/>
-
-                            <div className={styles.campos}>
                                 <label>
                                     Email
                                     <input type="text" maxLength={150} value={email} onChange={ (event) => setEmail(event.target.value)} />
                                 </label>
                                 <label>
-                                    Est. Civil
-                                    <input type="text" maxLength={30} value={civil} onChange={ (event) => setCivil(event.target.value)} />
-                                </label>
-                                <label>
-                                    UF
-                                    <input type="text" maxLength={2} value={uf} onChange={ (event) => setUf(event.target.value)} />
+                                    Celular
+                                    <input type="text" maxLength={50} value={cel} onChange={ (event) => setCel(event.target.value)} />
                                 </label>
                             </div>
 
@@ -179,25 +147,13 @@ export function ModalEditarPageListCliente(props: any){
                                     Numero
                                     <input type="number" maxLength={10} value={numero} onChange={ (event) => setNumero(parseInt(event.target.value))} />
                                 </label>
-                                <label>
-                                    Telefone
-                                    <input type="text" maxLength={50} value={tel} onChange={ (event) => setTel(event.target.value)} />
-                                </label>
+                               
                             </div>
 
                             <br/>
 
                             <div className={styles.campos}>
-                                <label>
-                                    Celular
-                                    <input type="text" maxLength={50} value={cel} onChange={ (event) => setCel(event.target.value)} />
-                                </label>
-                            </div>
-    
-                            <br/>
-
-                            <div className={styles.campos}>
-                                <button>Atualizar Cliente</button>
+                                <button>Atualizar Fornecedor</button>
                             </div>
 
                         </form>
