@@ -385,10 +385,10 @@ function Home(props: any){
         
         switch (condition) {
             case 1:
-                router.push("/fornecedor");
+                router.push("/fornecedorListar");
                 break;
             case 2:
-                router.push("/cliente");
+                router.push("/clienteListar");
                 break;
             case 3:
                 router.push("/produto");
