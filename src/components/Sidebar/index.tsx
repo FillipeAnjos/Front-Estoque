@@ -1,5 +1,5 @@
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import { FcBriefcase , FcHome, FcPaid, FcShipped, FcLike, FcManager } from "react-icons/fc";
+import { FcBriefcase , FcHome, FcPaid, FcShipped, FcLike, FcManager, FcInspection } from "react-icons/fc";
 import Link from 'next/link';
 import styles from '../Sidebar/styles.module.scss';
 import { signOut, useSession } from 'next-auth/react';
@@ -84,6 +84,25 @@ export function Sidebar() {
                     </MenuItem>
                     <MenuItem >
                       <Link href="/fornecedorListar">Listar</Link>
+                    </MenuItem>
+                  </SubMenu>                  
+                  
+                </SubMenu>
+                <SubMenu title="Relatórios" icon={<FcInspection />}>
+
+                  <SubMenu title="Vendas">
+                    <MenuItem >
+                      <Link href="/relatorioVendas">Listar</Link>
+                    </MenuItem>
+                  </SubMenu> 
+                  <SubMenu title="Clientes">
+                    <MenuItem >
+                      <Link href="/">Listar</Link>
+                    </MenuItem>
+                  </SubMenu> 
+                  <SubMenu title="Fornecedor">
+                    <MenuItem >
+                      <Link href="/">Listar</Link>
                     </MenuItem>
                   </SubMenu>                  
                   
