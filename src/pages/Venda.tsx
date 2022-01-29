@@ -310,7 +310,7 @@ function Venda(){
                                     </select>
                                     <br/><br/>
                                     <h4>Observação</h4>
-                                    <textarea rows={5} value={obs} onChange={ (event) => setObs(event.target.value) }>
+                                    <textarea rows={5} value={obs} onChange={ (event) => setObs(event.target.value) } placeholder="Não incluir aspas na observação.">
 
                                     </textarea>
                             </div>
