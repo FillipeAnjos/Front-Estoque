@@ -92,9 +92,17 @@ export function Sidebar() {
 
                   <SubMenu title="Vendas">
                     <MenuItem >
-                      <Link href="/relatorioVendas">Listar</Link>
+                      <Link href="/relatorioFechamentos">Fechamentos</Link>
+                    </MenuItem>
+                    <MenuItem >
+                      <Link href="/relatorioVendas">Vendas</Link>
                     </MenuItem>
                   </SubMenu> 
+                  <SubMenu title="Produtos">
+                    <MenuItem >
+                      <Link href="/">Listar</Link>
+                    </MenuItem>
+                  </SubMenu>
                   <SubMenu title="Clientes">
                     <MenuItem >
                       <Link href="/">Listar</Link>
