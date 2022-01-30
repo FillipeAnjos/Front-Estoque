@@ -1,0 +1,38 @@
+.container {
+    display: grid;
+    margin-top: 2rem;
+    width: 70rem;
+
+    select {
+        margin-top: 0.5rem;
+        height: 2rem;
+        width: 30%;
+        border-radius: 5px;
+    }
+
+    input {
+        height: 2rem;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+
+    .texto {
+        display: flex;
+        margin-top: 1rem;
+        width: 63%;
+        justify-content: space-between;
+
+        input {
+            width: 48%;
+        }
+    }
+
+    button {
+        width: 10rem;
+        background: #000;
+        color: var(--white);
+        text-align: center;
+        margin-top: 1.0rem;
+    }
+
+}
