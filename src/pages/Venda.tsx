@@ -8,7 +8,6 @@ import { FaTrashAlt } from "react-icons/fa";
 
 import verificarAutenticidade from "../utils/verificarAutenticidade";
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import TextField from '@mui/material/TextField';
@@ -25,6 +24,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ActionAlerts from "../components/Alert";
 import Popover from '@mui/material/Popover';
+import { Autenticacao } from "../utils/autenticacao";
 
 interface IProdutoSelecionado{
     categoria: string;
@@ -44,8 +44,6 @@ interface IProdutoSelecionado{
 
 function Venda(){
 
-    const {data: session} = useSession();
-
     const router = useRouter();
 
     // ------------------------ Alerta -----------------------
@@ -53,11 +51,6 @@ function Venda(){
         const [alertatipo, setAlertatipo] = useState('');
         const [alertamsg, setAlertamsg] = useState('');
     // -------------------------------------------------------
-
-    var idUsuario = null;
-    if(session){
-        idUsuario = session.user.email;
-    }
     
     const [usuariosadmin, setUsuariosadmin] = useState([]);
     const [caixa, setCaixa] = useState(true);
@@ -110,7 +103,7 @@ function Venda(){
         loja: false,
     });
 
-    const [vendedor, setVendedor] = useState(parseInt(idUsuario));
+    const [vendedor, setVendedor] = useState(0);
     const [obs, setObs] = useState('');
 
     const trocarPagamento = name => event => {
@@ -136,6 +129,7 @@ function Venda(){
     };
 
     useEffect(() => {
+        buscarIdUser();
         buscarStatusCaixa();
         buscarUsuarios();
         buscarProdutos();
@@ -305,7 +299,7 @@ function Venda(){
                                     <h3>Vendedor</h3>
                                     <select value={vendedor} onChange={ (event) => setVendedor(parseInt(event.target.value)) }>
                                         {usuariosadmin.map(item => (
-                                            <option value={item.id} selected={item.id == idUsuario}>{item.nome}</option>
+                                            <option value={item.id} selected={item.id == vendedor}>{item.nome}</option>
                                         ))}
                                     </select>
                                     <br/><br/>
@@ -416,6 +410,10 @@ function Venda(){
 
     function realizarVenda(){
 
+        if(!confirm("Deseja realmente realizar essa venda?")){
+            return false;
+        }
+
         var valoresDados = {
             subtotal,
             desconto,
@@ -431,6 +429,16 @@ function Venda(){
             modalidade: checkbox,
             valores: valoresDados,
             obs: obs
+        }
+
+        if(subtotal == 'NaN' ||
+        desconto == 'NaN' ||
+        valortotal == 'NaN' ||
+        valorrecebito == 'NaN' ||
+        valorrestante == 'NaN' ||
+        troco == 'NaN'){
+            alert("Favor verifique os valores dos ultimos 6 campos. Alguns deles estão com valor errado. Exemplo: NaN");
+            return false;
         }
 
         api({
@@ -453,10 +461,28 @@ function Venda(){
 
     }
 
+    async function buscarIdUser(){
+        
+        var autenticacao = new Autenticacao();
+        var tokenLogado = autenticacao.userLogado();
+
+        if(tokenLogado){
+            var userLogado = await autenticacao.usuarioLogado(tokenLogado)
+
+            setVendedor(userLogado.id);
+        }
+
+    }
+
     function calcularValor(){
 
         if(checkbox.dinheiro == false && checkbox.pix == false && checkbox.credito == false && checkbox.debito == false && checkbox.loja == false){
             alert("Escolha uma forma de pagamento!");
+            return false
+        }
+
+        if(addprodutos.length == 0){
+            alert("Sua lista de produtos está vazia.");
             return false
         }
 
@@ -521,6 +547,11 @@ function Venda(){
         var dadosParam = {
             id_produto: id,
             unidade: unidade
+        }
+
+        if(dadosParam.id_produto == 0){
+            alert("Escolha um produto para adicionar.");
+            return false;
         }
 
         var condicaoQtd = await api({

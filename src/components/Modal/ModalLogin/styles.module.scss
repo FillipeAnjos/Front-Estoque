@@ -3,7 +3,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40rem;
+    width: 50rem;
     background: var(--white);
     box-shadow: 1px 1px 5px var(--white);
     border: 1px solid #000;
@@ -19,11 +19,22 @@
         }
 
         input {
-            width: 18rem;
+            width: 23rem;
             height: 2rem;
             margin-top: 0.5rem;
         }
 
+        select {
+            width: 23rem;
+            height: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        textarea {
+            margin-top: 0.5rem;
+            width: 48rem;
+        }
+        
         button {
             width: 50rem;
             background: #000;
@@ -36,6 +47,4 @@
 
 .iconEditar {
     cursor: pointer;
-    text-align: center;
-    font-size: 22px;
 }

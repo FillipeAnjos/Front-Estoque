@@ -2,25 +2,45 @@ import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { FcBriefcase , FcHome, FcPaid, FcShipped, FcLike, FcManager, FcInspection } from "react-icons/fc";
 import Link from 'next/link';
 import styles from '../Sidebar/styles.module.scss';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { useRouter } from "next/router";
 
+import { destroyCookie } from 'nookies';
+import { useEffect, useState } from 'react';
+import { Autenticacao } from '../../utils/autenticacao';
+import { ModalLogin } from "../../components/Modal/ModalLogin"
+
+interface IUserLogado{
+  admin: string;
+  created_at: string;
+  email: string;
+  genero: string;
+  id: number;
+  nascimento: string;
+  nome: string;
+  senha: string;
+  updated_at: string;
+}
+
 export function Sidebar() {
+
+    const [token, setToken] = useState(false);
+    const [user, setUser] = useState<IUserLogado>();
 
     const {data: session} = useSession();
     const router = useRouter();
 
-    function deslogar(){
-      router.push('/criarConta');
-      signOut();
-    }
+    useEffect (() => {
+      setarUser();
+    }, [])
 
     return (
         <>
           <ProSidebar className={styles.provider}>
           <Menu iconShape="square">
-            {session ? 
+            {//session ? 
+               token ?
               <>
                 <MenuItem>
                   <h2 className={styles.logout} title='Deseja deslogar?' onClick={ () => deslogar() }><AiOutlineLogout /></h2>
@@ -117,6 +137,11 @@ export function Sidebar() {
                 </SubMenu>
               </> 
             : 
+              <>
+              <MenuItem>
+                  {/*<h2 className={styles.logout} title='Deseja Logar?' onClick={ () => logar() }><AiOutlineLogin /></h2>*/}
+                  <ModalLogin estadoLogar={mudarEstadoLogado} />
+                </MenuItem>
               <SubMenu title="Logar" icon={<FcHome />}>
                 {/*<MenuItem >
                     <Link href="/login">Login</Link>
@@ -125,10 +150,40 @@ export function Sidebar() {
                     <Link href="/criarConta">Criar Conta</Link>
                   </MenuItem>
               </SubMenu>
+              </>
             }
           </Menu>
         </ProSidebar>
         <div className={styles.menuFixoMarginDireita} />
       </>
     )
+
+    async function setarUser(){
+      var autenticacao = new Autenticacao();
+      var tokenLogado = autenticacao.userLogado();
+
+      if(tokenLogado){
+        var userLogado = await autenticacao.usuarioLogado(tokenLogado)
+
+          setUser(userLogado);
+          setToken(true);
+      }
+    }
+
+  function deslogar(){
+
+    if(!confirm("Deseja realmente deslogar?")){
+      return false;
+    }
+
+    router.push('/');
+    destroyCookie(null, 'nextauth.estoque.token');
+    setToken(false);
+  }
+
+  function mudarEstadoLogado(){
+    var tokenStatus = !token;
+    setToken(tokenStatus);
+  }
+
 }

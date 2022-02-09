@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ElementType, useEffect } from "react";
+import { Autenticacao } from "./autenticacao";
 
 export default function verificarAutenticidade(WrappedComponent: ElementType){
     const Wrapper = (props: any) => {
@@ -12,10 +13,16 @@ export default function verificarAutenticidade(WrappedComponent: ElementType){
         //console.log(session.user.name.nome);
         
         useEffect(() => {
+            var autenticacao = new Autenticacao();
+            var tokenLogado = autenticacao.userLogado();
 
-            if(!session){
-                router.replace('/');
+            if(!tokenLogado){
+                router.replace('/'); 
             }
+
+            /*if(!session){
+                router.replace('/');
+            }*/
 
         }, []);
         

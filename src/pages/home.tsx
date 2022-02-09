@@ -18,10 +18,11 @@ import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import ActionAlerts from "../components/Alert";
 import { useRouter } from "next/router";
+import { Autenticacao } from "../utils/autenticacao";
 
 function Home(props: any){
 
-    const {data: session} = useSession();
+    //const {data: session} = useSession();
 
     const router = useRouter();
 
@@ -31,12 +32,7 @@ function Home(props: any){
         const [alertamsg, setAlertamsg] = useState('');
     // -------------------------------------------------------
 
-    var nomeUsuario = null;
-    if(session){
-        nomeUsuario = session.user.name;
-    }
-
-    const [nomeuser, setNomeuser] = useState(nomeUsuario);
+    const [nomeuser, setNomeuser] = useState('');
 
     const [caixa, setCaixa] = useState(0);
     const [fechamentoAnterior, setFechamentoAnterior] = useState({});
@@ -49,6 +45,7 @@ function Home(props: any){
         buscarStatusCaixa();
         buscarVendasDia();
         buscarUsers();
+        buscarNomeUser();
 
     }, [])
 
@@ -409,6 +406,19 @@ function Home(props: any){
         }).then( res => {
             setUsuarios(res.data.usuarios);
         })
+    }
+
+    async function buscarNomeUser(){
+        
+        var autenticacao = new Autenticacao();
+        var tokenLogado = autenticacao.userLogado();
+
+        if(tokenLogado){
+            var userLogado = await autenticacao.usuarioLogado(tokenLogado)
+
+            setNomeuser(userLogado.nome);
+        }
+
     }
 
 }
