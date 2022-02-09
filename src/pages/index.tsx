@@ -1,6 +1,7 @@
 import CriarConta from './criarConta';
 //import HomePage from './home';
 import { useSession } from "next-auth/react"
+import { Autenticacao } from '../utils/autenticacao';
 
 import dynamic from 'next/dynamic';
 
@@ -18,9 +19,13 @@ export const getStaticProps = async () => {
 
 export default function Home({ chave_OpenWeatherMap, chave_adm }) {
 
+  var autenticacao = new Autenticacao();
+  var tokenLogado = autenticacao.userLogado();
+
   const {data: session} = useSession();
 
-  return session != null ? (
+  //return session != null ? (
+  return tokenLogado != null ? (
     <>
       <HomePage chaveTemperatuda={chave_OpenWeatherMap} />
     </>

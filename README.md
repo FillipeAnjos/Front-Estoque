@@ -46,6 +46,9 @@ npm i @material-ui/core
 
 npm install moment --save
 
+npm add nookies
+npm add @types/cookie -D
+
 ## BACK-END
 
 npm install typeorm
