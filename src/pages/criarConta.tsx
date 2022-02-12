@@ -23,7 +23,7 @@ export default function CriarConta(props: any) {
     const [genero, setGenero] = useState('f');
     const [admin, setAdmin] = useState('');
     
-    const {data: session} = useSession();
+    //const {data: session} = useSession();
 
     function criarConta(event: any) {
         event.preventDefault();
@@ -102,7 +102,15 @@ export default function CriarConta(props: any) {
 
             <br/>
 
-            {!session ? 
+            <button 
+                type="submit"
+                className={styles.buttonLogar}
+                onClick={(event) => criarConta(event)}
+            >
+                Criar Conta
+            </button> 
+
+            {/*!session ? 
                 <>
                     <button 
                         type="submit"
@@ -129,7 +137,7 @@ export default function CriarConta(props: any) {
                 >
                     Você já está logado
                 </button> 
-            }
+            */}
 
             <br/>
             <br/>
