@@ -4,8 +4,6 @@ import Chart from 'react-apexcharts';
 
 export default function ProgressoMensal(props: any){
 
-    console.log(props);
-
     const [options, setOptions] = useState({
         chart: {
             id: 'apexchart-example'
@@ -20,7 +18,7 @@ export default function ProgressoMensal(props: any){
 
     const [series, setSeries] = useState([{
         name: 'Vendas',
-        data: [30, 40, 35, 50, 49, 60, 70, 91, 33, 80, 66, 125]
+        data: props.vendas
     }])
 
     return (
