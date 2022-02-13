@@ -34,6 +34,7 @@ interface IProdutosProviderProps{
 interface IMetodosUseContextProdutos{
     produtos: IProdutos[];
     editarProduto: (dados: IProdutosEditar) => Promise<void>
+    vendas: any[];
 }
 
 export const contextProdutos = createContext<IMetodosUseContextProdutos>(
@@ -43,11 +44,21 @@ export const contextProdutos = createContext<IMetodosUseContextProdutos>(
 export function UseContextProdutos({children}: IProdutosProviderProps){
 
     const [produtos, setProdutos] = useState<IProdutos[]>([]);
+    const [vendas, setVendas] = useState([]);
 
     useEffect(() => {
         listarProdutos();
-
+        buscarGraficoVendas();
     }, []);
+
+    function buscarGraficoVendas(){
+        api({
+            method: 'POST',
+            url: '/buscarGraficoVendas'
+        }).then((res) => {
+            setVendas(res.data.vendas);
+        })
+    }
 
     function listarProdutos(){
         api({
@@ -85,7 +96,7 @@ export function UseContextProdutos({children}: IProdutosProviderProps){
     }
 
     return (
-        <contextProdutos.Provider value={{produtos, editarProduto}} >
+        <contextProdutos.Provider value={{produtos, editarProduto, vendas}} >
             { children }
         </contextProdutos.Provider>
     );

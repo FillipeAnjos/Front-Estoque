@@ -124,7 +124,7 @@ function Home(props: any){
                     <div className={styles.textProgresso}>
                         <h2><BiBarChart /></h2><p>Progresso Mensal</p>
                     </div>
-                    <ProgressoMensal tipo={"bar"} />
+                    <ProgressoMensal tipo={"bar"} vendas={props.vendas} />
                 </div>
                 
             </div>
