@@ -27,12 +27,12 @@ export default function Home({ chave_OpenWeatherMap, chave_adm }) {
   
   //const {data: session} = useSession();
   
-  let { vendas } = useContext(contextProdutos);
+  let { vendas, fechamentos } = useContext(contextProdutos);
 
   //return session != null ? (
   return tokenLogado != null ? (
     <>
-      <HomePage chaveTemperatuda={chave_OpenWeatherMap} vendas={vendas}  />
+      <HomePage chaveTemperatuda={chave_OpenWeatherMap} vendas={vendas} fechamentos={fechamentos}  />
     </>
   ) : (
    <>
