@@ -18,7 +18,7 @@ export default function ProgressoMensal(props: any){
 
     const [series, setSeries] = useState([{
         name: 'Vendas',
-        data: props.vendas
+        data: props.vendasfechamentos
     }])
 
     return (
