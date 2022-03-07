@@ -124,7 +124,7 @@ function Home(props: any){
                     <div className={styles.textProgresso}>
                         <h2><BiBarChart /></h2><p>Progresso Mensal</p>
                     </div>
-                    <ProgressoMensal tipo={"bar"} vendasfechamentos={props.vendas} />
+                    <ProgressoMensal tipo={"bar"} nome={"Vendas"} vendasfechamentos={props.vendas} />
                 </div>
                 
             </div>
@@ -167,7 +167,7 @@ function Home(props: any){
                     <div className={styles.textConsumo}>
                         <h2><BiBarChart /></h2><p>Consumo</p>
                     </div>
-                    <ProgressoMensal tipo={"area"} vendasfechamentos={props.fechamentos} />
+                    <ProgressoMensal tipo={"area"} nome={"Dias"} vendasfechamentos={props.fechamentos} />
                 </div>
 
             </div>
