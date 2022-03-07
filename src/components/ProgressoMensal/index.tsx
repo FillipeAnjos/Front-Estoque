@@ -17,7 +17,7 @@ export default function ProgressoMensal(props: any){
     })
 
     const [series, setSeries] = useState([{
-        name: 'Vendas',
+        name: props.nome,
         data: props.vendasfechamentos
     }])
 
