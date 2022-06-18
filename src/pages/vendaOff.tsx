@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "../components/venda/styles.module.scss";
+import styles from "../components/Venda/styles.module.scss";
 import { AiFillCaretDown } from 'react-icons/ai';
 
 import Accordion from '@mui/material/Accordion';
