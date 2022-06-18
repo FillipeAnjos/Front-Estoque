@@ -4,6 +4,7 @@ import styles from '../components/HomePage/styles.module.scss';
 import imgHome from '../../public/imagens/home/home1.png';
 import Image from "next/image";
 import moment from "moment";
+import Link from 'next/link';
 import { WiCloud } from 'react-icons/wi';
 import { AiFillDollarCircle } from 'react-icons/ai';
 import { BiBarChart } from 'react-icons/bi';
@@ -133,13 +134,13 @@ function Home(props: any){
 
                 <div className={styles.redesSociais}>
                     {/*<a href="" target="_blank"><h2 title="Suas anotações"><IoIosPaper /></h2></a>*/}
-                    <a href="" target="_blank"><h2 title="Configurações"><IoIosSettings /></h2></a>
+                    <a href="" ><h2 title="Configurações"><IoIosSettings /></h2></a>
                     {/*<a href="" target="_blank"><h2 title="9dades"><IoIosNotifications /></h2></a>*/}
-                    <a href="" target="_blank"><h2 title="Usuários do sistema"><IoMdPerson /></h2></a>
-                    <a href="https://www.instagram.com/" target="_blank"><h2 title="Instagram"><IoLogoInstagram /></h2></a>
-                    <a href="https://www.facebook.com/" target="_blank"><h2 title="Facebook"><IoLogoFacebook /></h2></a>
-                    <a href="https://web.whatsapp.com" target="_blank"><h2 title="Whatsapp"><IoLogoWhatsapp /></h2></a>
-                    <a href="/ajuda" target="_blank"><h2 title="Ajuda"><IoMdHelpCircleOutline /></h2></a>
+                    <a href="" ><h2 title="Usuários do sistema"><IoMdPerson /></h2></a>
+                    <a href="https://www.instagram.com/" ><h2 title="Instagram"><IoLogoInstagram /></h2></a>
+                    <a href="https://www.facebook.com/" ><h2 title="Facebook"><IoLogoFacebook /></h2></a>
+                    <a href="https://web.whatsapp.com" ><h2 title="Whatsapp"><IoLogoWhatsapp /></h2></a>
+                    <Link href="/ajuda"><h2 title="Ajuda"><IoMdHelpCircleOutline /></h2></Link>
                 </div>
                 
                 <div className={styles.caixa4}>

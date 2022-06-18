@@ -2,6 +2,7 @@ import styles from '../components/Login/styles.module.scss';
 import Head from 'next/head'
 import { FormEvent, useState } from 'react';
 import { api } from '../services/api';
+import Link from 'next/link';
 
 import { useSession, signIn, signOut } from "next-auth/react";
 
@@ -74,8 +75,8 @@ export default function Login() {
                                         Logar
                                     </button> 
                                     <br/>
-                                    
-                                    <a href="/criarConta" className={styles.buttonCriar}>Criar Nova Conta</a>
+                                    {/* <a href="/criarConta" className={styles.buttonCriar}>Criar Nova Conta</a> */ }
+                                    <Link href="/criarConta" >Criar Nova Conta</Link>
                                 </>
                             : 
                                 <button 
