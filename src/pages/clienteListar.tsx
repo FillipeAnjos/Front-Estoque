@@ -114,6 +114,8 @@ function ClienteListar(){
         alerta == true ? setAlerta(false) : setAlerta(true);
     }
 
+    const ReactPaginates = ReactPaginate as any; // Ganbiarra feita para resolver o erro da Vercel, retorno de um elemento JSX
+
   return (
       <>
         <Head>
@@ -186,7 +188,7 @@ function ClienteListar(){
 
             <br/><br/>
 
-            <ReactPaginate
+            <ReactPaginates
                 previousLabel={"<<<"}
                 nextLabel={">>>"}
                 pageCount={pageCount}
