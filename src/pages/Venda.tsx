@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "../components/venda/styles.module.scss";
+import styles from "../components/Venda/styles.module.scss";
 import { api } from "../services/api";
 import VendaOff from "./vendaOff";
 import { AiFillCaretDown } from 'react-icons/ai';
