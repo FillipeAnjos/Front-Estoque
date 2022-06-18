@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Chart from 'react-apexcharts';
 
-export default function ProgressoMensal(props: any){
+export default function ProgressoMensal(props: any): JSX.Element{
 
     const [options, setOptions] = useState({
         chart: {
