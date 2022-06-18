@@ -25,8 +25,10 @@ export default function verificarAutenticidade(WrappedComponent: ElementType){
             }*/
 
         }, []);
+
+        const WrappedComponents = WrappedComponent as any; // Gambiarra feita para resolver o erro da Vercel, retorno de um elemento JSX
         
-        return <WrappedComponent {...props} />
+        return <WrappedComponents {...props} />
     }
 
     return Wrapper;
