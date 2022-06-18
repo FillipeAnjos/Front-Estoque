@@ -91,6 +91,8 @@ function ProdutoQtd(){
         alerta == true ? setAlerta(false) : setAlerta(true);
     }
 
+    const ReactPaginates = ReactPaginate as any; // Gambiarra feita para resolver o erro da Vercel, retorno de um elemento JSX
+
   return (
       <>
         <Head>
@@ -167,7 +169,7 @@ function ProdutoQtd(){
 
             <br/><br/>
 
-            <ReactPaginate
+            <ReactPaginates
                 previousLabel={"<<<"}
                 nextLabel={">>>"}
                 pageCount={pageCount}
