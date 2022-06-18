@@ -22,8 +22,13 @@ export default function ProgressoMensal(props: any){
     }])
 
     return (
-        <>{
-            <Chart options={options} series={series} type={props.tipo} height={300} />
-        }</>
+        <>
+            <div className="app">
+                <div className="row">
+                <div className="mixed-chart"></div>
+                    <Chart options={options} series={series} type={props.tipo} height={300} />
+                </div>
+            </div>
+        </>
     )
 }
