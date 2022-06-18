@@ -21,9 +21,11 @@ export default function ProgressoMensal(props: any): JSX.Element{
         data: props.vendasfechamentos
     }])
 
+    const Charts = Chart as any; // Ganbiarra feita para resolver o erro da Vercel, retorno de um elemento JSX
+
     return (
         <>{
-            <Chart options={options} series={series} type={props.tipo} height={300} />
+            <Charts options={options} series={series} type={props.tipo} height={300} />
         }</>
     )
 }
