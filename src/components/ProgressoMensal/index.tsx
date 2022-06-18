@@ -22,8 +22,8 @@ export default function ProgressoMensal(props: any){
     }])
 
     return (
-        <>
+        <>{
             <Chart options={options} series={series} type={props.tipo} height={300} />
-        </>
+        }</>
     )
 }
