@@ -21,33 +21,46 @@ React Js / Next Js / Sass / TypeScript / JavaScript / TypeOrm / PostgreSQL
 
 ## Bibliotecas
 
+### Criar um projeto NextJs
 npx create-next-app <nome projeto>
 
+### Adicionar o Typescript e seus types
 npm add typescript @types/react @types/node -D
 
+### Instalar um sidebar - Menu ao lado
 npm i react-pro-sidebar
 
+### Adicionar React Icons
 npm add react-icons
 
+### Instala o Frameword Sass - Css
 npm add sass
 
+### Instalar o Axios a para api
 npm add axios
 
+### Referente ao entendimento de variaveis ambientes
+npm install dotenv
+
+### Instalação o Next Auth - OBS não está sendo usado nesse projeto
 npm add next-auth
 npm add @types/next-auth -D
 
+### Instalação do React Paginate
 npm install react-paginate
 
+### Instalação da biblioteca de Material Ui - componentes prontos para estilização
 npm install @mui/material @emotion/react @emotion/styled
-
 npm i @material-ui/lab
-
 npm i @material-ui/core
 
+### Instalação do Moment para manipular data's
 npm install moment --save
 
+### Instalação do Nookies e seus Types para utilizar os kookies - Realizar o login
 npm add nookies
 npm add @types/cookie -D
+
 
 ## BACK-END
 
