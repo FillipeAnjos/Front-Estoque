@@ -159,7 +159,7 @@ function Venda(){
                             <Typography sx={{ p: 2 }}>
                                 Importante.<br/><br/>
                                 Ao adicionar os produtos certifique de calcular os valores,<br/>
-                                apertando o botão "Calcular".<br/>
+                                apertando o botão Calcular.<br/>
                                 Se caso você depois de calcular os valores tiver que adicionar<br/>
                                 mais um produto terá que apertar novamente no botão calcular,<br/>
                                 para também calcular os valores de novo, caso contrario os<br/>
@@ -298,8 +298,8 @@ function Venda(){
                             <div className={styles.cubo2}>
                                     <h3>Vendedor</h3>
                                     <select value={vendedor} onChange={ (event) => setVendedor(parseInt(event.target.value)) }>
-                                        {usuariosadmin.map(item => (
-                                            <option value={item.id} selected={item.id == vendedor}>{item.nome}</option>
+                                        {usuariosadmin.map((item, index) => (
+                                            <option key={index} value={item.id} selected={item.id == vendedor}>{item.nome}</option>
                                         ))}
                                     </select>
                                     <br/><br/>
@@ -324,26 +324,26 @@ function Venda(){
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {addprodutos.map(item => (
-                                                    <tr>
+                                                {addprodutos.map((item, index) => (
+                                                    <tr key={index}>
                                                         <td>
                                                             {item.id}
                                                         </td>
-                                                    <td>
-                                                        {item.produto}
-                                                    </td>
-                                                    <td>
-                                                        R${item.valor}
-                                                    </td>
-                                                    <td>
-                                                        {item.unidade}
-                                                    </td>
-                                                    <td>
-                                                        <span>
-                                                            <h4 onClick={ () => excluirItem(item.id) }><FaTrashAlt title="Excluir item?"/></h4>
-                                                        </span>
-                                                    </td>
-                                                </tr>
+                                                        <td>
+                                                            {item.produto}
+                                                        </td>
+                                                        <td>
+                                                            R${item.valor}
+                                                        </td>
+                                                        <td>
+                                                            {item.unidade}
+                                                        </td>
+                                                        <td>
+                                                            <span>
+                                                                <h4 onClick={ () => excluirItem(item.id) }><FaTrashAlt title="Excluir item?"/></h4>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
                                                 ))}
                                             </tbody>
                                         </table>

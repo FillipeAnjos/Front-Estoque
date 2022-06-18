@@ -54,7 +54,7 @@ function Ajuda(){
                     <AccordionDetails>
                     <Typography>
                         Ao adicionar os produtos certifique de calcular os valores,<br/>
-                        apertando o botão "Calcular".<br/>
+                        apertando o botão Calcular.<br/>
                         Se caso você depois de calcular os valores tiver que adicionar<br/>
                         mais um produto terá que apertar novamente no botão calcular,<br/>
                         para também calcular os valores de novo, caso contrario os<br/>
