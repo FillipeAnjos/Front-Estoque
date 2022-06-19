@@ -1,6 +1,9 @@
 
 import { useState } from 'react';
-import Chart from 'react-apexcharts';
+import dynamic from 'next/dynamic'
+//import Chart from 'react-apexcharts';
+
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });// Essa linha resolver o erro de "ReferenceError: window is not defined" - https://stackoverflow.com/questions/68596778/next-js-window-is-not-defined
 
 export default function ProgressoMensal(props: any): JSX.Element{
 
