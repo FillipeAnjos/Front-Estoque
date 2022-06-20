@@ -27,14 +27,14 @@ export default function Home({ chave_OpenWeatherMap, chave_adm }) {
   
   //const {data: session} = useSession();
   
-  let { vendas, fechamentos } = useContext(contextProdutos);
+  //let { vendas, fechamentos } = useContext(contextProdutos);
 
   const HomePages = HomePage as any; // Gambiarra feita para resolver o erro da Vercel, retorno de um elemento JSX
 
   //return session != null ? (
   return tokenLogado != null ? (
     <>
-      <HomePages chaveTemperatuda={chave_OpenWeatherMap} vendas={vendas} fechamentos={fechamentos}  />
+      <HomePages chaveTemperatuda={chave_OpenWeatherMap}  />
     </>
   ) : (
    <>
