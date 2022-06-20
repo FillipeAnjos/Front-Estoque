@@ -52,7 +52,7 @@ export function ModalLogin(props: any){
                             <div className={styles.codNome}>
                                 <label>
                                     Email
-                                    <input type="text" value={email} onChange={ (event) => setEmail(event.target.value) } />
+                                    <input type="text" value={email} onChange={ (event) => setEmail(event.target.value.toLowerCase()) } />
                                 </label>
                                 <label>
                                     Senha
