@@ -15,15 +15,18 @@ import { IoIosSettings, IoLogoFacebook, IoIosNotifications, IoLogoWhatsapp, IoMd
 import { useSession } from "next-auth/react";
 import ProgressoMensal from '../components/ProgressoMensal';
 import Temperatura from "../components/Temperatura";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 import ActionAlerts from "../components/Alert";
 import { useRouter } from "next/router";
 import { Autenticacao } from "../utils/autenticacao";
+import { contextProdutos } from "../hooks/useContextProdutos";
 
 function Home(props: any){
 
     //const {data: session} = useSession();
+
+    let { vendas, fechamentos } = useContext(contextProdutos);
 
     const router = useRouter();
 
@@ -125,7 +128,7 @@ function Home(props: any){
                     <div className={styles.textProgresso}>
                         <h2><BiBarChart /></h2><p>Progresso Mensal</p>
                     </div>
-                    <ProgressoMensal tipo={"bar"} nome={"Vendas"} vendasfechamentos={props.vendas} />
+                    <ProgressoMensal tipo={"bar"} nome={"Vendas"} vendasfechamentos={vendas} />
                 </div>
                 
             </div>
@@ -168,7 +171,7 @@ function Home(props: any){
                     <div className={styles.textConsumo}>
                         <h2><BiBarChart /></h2><p>Consumo</p>
                     </div>
-                    <ProgressoMensal tipo={"area"} nome={"Dias"} vendasfechamentos={props.fechamentos} />
+                    <ProgressoMensal tipo={"area"} nome={"Dias"} vendasfechamentos={fechamentos} />
                 </div>
 
             </div>
